@@ -12,6 +12,7 @@ This app helps FastSigns Durango track takeaways at it's various locations throu
 2. Make any changes in the database.yml to have it work with your system.
 3. `cp .env-example .env`
 4. Make the appropriate environment variable changes if needed
+5. `rake db:setup` to set up your database
 
 ## Environment Variables
 
