@@ -2,6 +2,8 @@
 
 This app helps FastSigns Durango track takeaways at it's various locations throughout town. It's built by the students at Durango Ruby School.
 
+Heroku app location: http://takeaways.herokuapp.com/
+
 ## Dependencies
 
 * Postgresql
