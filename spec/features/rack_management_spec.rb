@@ -3,8 +3,9 @@ require 'spec_helper'
 feature 'manage racks' do
   scenario 'CRUD for Rack' do
 
-    visit rack_path
-
+    visit brochure_racks_path
+    
+    click_link "Add Rack"
     fill_in "Name", with: "Airport"
     fill_in "Number of Rows", with: "10"
     fill_in "Number of Columns", with: "4" 
