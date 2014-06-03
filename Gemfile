@@ -33,12 +33,12 @@ group :development, :test do
   gem 'rspec-rails', '~> 2.14.2'
   gem 'factory_girl_rails', '~> 4.4.1'
   gem 'dotenv-rails'
-  
 end
 
 group :test do
   gem 'capybara', '~> 2.2.1'
   gem 'shoulda-matchers', '~> 2.6.0'
+  gem 'launchy'
 end
 
 # Use ActiveModel has_secure_password
