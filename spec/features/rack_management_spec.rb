@@ -12,18 +12,16 @@ feature 'manage racks' do
     click_button "Create Rack"
     expect(page).to have_content "Rack Successfully Created"
     
-    expect(page).to have_content "Airport"
-    click_button "Edit"
+    expect(page).to have_content "Airport"    
+    click_link "Edit"
     fill_in "Name", with: "DMR"
     fill_in "Number of Rows", with: "8"
-    fill_in "Number of Columns", with: "6" 
-    click_button "Save Rack"
+    fill_in "Number of Columns", with: "6"     
+    click_button "Update Rack"
     expect(page).to have_content "Successfully Updated"
     
     expect(page).to have_content "DMR"
-    click_button "Delete"
-    expect(page).to have_content "Delete DMR?"
-    click_button "Delete"
+    click_link "Delete"
     expect(page).not_to have_content "DMR"
   end
 end
