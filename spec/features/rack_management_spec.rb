@@ -8,9 +8,9 @@ feature 'manage racks' do
     click_link "Add Rack"
     fill_in "Name", with: "Airport"
     fill_in "Number of Rows", with: "10"
-    fill_in "Number of Columns", with: "4" 
+    fill_in "Number of Columns", with: "4"     
     click_button "Create Rack"
-    expect(page).to have_content "Successfully Created"
+    expect(page).to have_content "Rack Successfully Created"
     
     expect(page).to have_content "Airport"
     click_button "Edit"
