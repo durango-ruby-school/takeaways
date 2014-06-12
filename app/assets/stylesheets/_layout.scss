@@ -1,11 +1,54 @@
-body {
-  background-color: white;
+body{
+  background-color: gray;
 }
 
 .welcome-message{
-  color: black;
+  color: blue;
+  text-align: center;
+  font-family: Trebuchet MS, Arial, Sans;
+  font-size: 60px;
 }
 
-.container {
+.container{
   @include outer-container;
 }
+
+.create-rack-message{
+   text-align: center;
+   color: blue;
+   font-family: Trebuchet MS, Arial, Sans;
+}
+
+.brochure-rack-message{
+  text-align: center;
+  color: blue;
+  font-family: Trebuchet MS, Arial, Sans;
+}
+
+.login{
+  text-align: center;
+}
+
+.new-client-message{
+  text-align: center;
+  color: blue;
+  font-family: Trebuchet MS, Arial, Sans;
+}
+
+
+
+
+.contact_form label {
+    width:150px;
+    margin-top: 3px;
+    display:inline-block;
+    float:left;
+    padding:3px;
+}
+.contact_form input {
+    height:20px; 
+    width:220px; 
+    padding:5px 8px;
+}
+.contact_form textarea {padding:8px; width:300px;}
+.contact_form button {margin-left:156px;}

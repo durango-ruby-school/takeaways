@@ -112,6 +112,7 @@ GEM
     rake (10.3.2)
     rdoc (4.1.1)
       json (~> 1.4)
+    refills (0.0.2)
     rspec-core (2.14.8)
     rspec-expectations (2.14.5)
       diff-lcs (>= 1.1.3, < 2.0)
@@ -180,6 +181,7 @@ DEPENDENCIES
   neat
   pg
   rails (= 4.1.1)
+  refills
   rspec-rails (~> 2.14.2)
   sass-rails (~> 4.0.3)
   sdoc (~> 0.4.0)
