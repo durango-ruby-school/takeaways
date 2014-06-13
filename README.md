@@ -4,6 +4,8 @@ This app helps FastSigns Durango track takeaways at it's various locations throu
 
 Heroku app location: http://takeaways.herokuapp.com/
 
+You can view project notifications in Durango Ruby School's Hipchat.
+
 ## Dependencies
 
 * Postgresql
