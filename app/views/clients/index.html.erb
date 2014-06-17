@@ -1,1 +1,11 @@
+<h1>Clients</h1>
+
 <%= link_to "New Client", new_client_path =%>
+
+<% @clients.each do |client| %>
+  <div class="clients">
+    <%= link_to client.name, client %>
+  </div>
+<% end %>
+
+  
