@@ -1,0 +1,7 @@
+<%= simple_form_for @brochure_rack do |f| %>
+  <%= f.input :name %>
+  <%= f.input :number_of_rows, label: "Number of Rows" %>
+  <%= f.input :number_of_columns, label: "Number of Columns" %>
+
+  <%= f.submit %>
+<% end %>

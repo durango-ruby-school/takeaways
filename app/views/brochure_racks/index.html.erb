@@ -1,0 +1,11 @@
+<h1 class=brochure-rack-message>Brochure Racks</h1>
+<%= link_to "Add Rack", new_brochure_rack_path %>
+<div>
+
+
+<% @brochure_racks.each do |brochure_rack| %>
+  <div class="brochure_racks">
+    <%= link_to brochure_rack.name, brochure_rack %>
+  </div>
+<% end %>
+</div>
