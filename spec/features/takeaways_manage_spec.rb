@@ -5,12 +5,13 @@ feature 'manage takeaways' do
     
     create :client, name: 'DMR'
     create :client, name: 'Railroad'
+    create :client, name: 'Animas Code Labs'
 
     visit takeaways_path
     
     click_link "New Takeaway"
     fill_in "Name", with: "Stay and Ski"
-    select 'DMR', from: 'Client'
+    select 'Animas Code Labs', from: 'Client'
     click_button "Create Takeaway"
     
     user_sees_flash_message "Takeaway Successfully Created"
@@ -32,7 +33,7 @@ feature 'manage takeaways' do
   def update_a_takeaway takeaway_name
     click_link "Edit"
     fill_in "Name", with: takeaway_name
-    select('Railroad', :from => 'Select Box')
+    select 'Railroad', from: 'Client'
     click_button "Update Takeaway"
   end
   
