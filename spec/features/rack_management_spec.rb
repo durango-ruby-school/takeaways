@@ -2,6 +2,7 @@ require 'spec_helper'
 
 feature 'manage racks' do
   scenario 'CRUD for Rack' do
+    sign_in_as_role(:user)
 
     visit brochure_racks_path
     
