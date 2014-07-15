@@ -35,6 +35,16 @@ class TakeawaysController < ApplicationController
     end
   end
 
+    def destroy
+      @takeaway = Takeaway.find params[:id]
+      if @takeaway.destroy
+        flash[:notice] = "Brochure Successfully Deleted"
+        redirect_to takeaways_path
+    else
+        render @takeaway
+    end
+  end
+  
   private
 
   def takeaway_params

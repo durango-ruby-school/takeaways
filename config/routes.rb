@@ -6,6 +6,6 @@ Rails.application.routes.draw do
 
   resources :brochure_racks, only: [:index, :new, :create, :show, :edit, :update, :destroy]
   
-  resources :takeaways, only: [:index, :new, :create, :show, :edit, :update]
+  resources :takeaways, only: [:index, :new, :create, :show, :edit, :update, :destroy]
 
 end
