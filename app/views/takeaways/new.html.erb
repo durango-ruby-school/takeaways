@@ -1,0 +1,9 @@
+<h1>Takeaways: new takeaway</h1>
+
+
+<%= simple_form_for @takeaway do |f| %>
+  <%= f.input :name %>
+<%= f.input :client_id, collection: Client.all %>
+
+  <%= f.submit %>
+<% end %>
