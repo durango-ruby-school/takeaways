@@ -4,7 +4,7 @@ class TakeawaysController < ApplicationController
   end
 
   def new
-    @takeaway= Takeaway.new
+    @takeaway= Takeaway.new client_id: params[:client_id]
   end
 
   def create

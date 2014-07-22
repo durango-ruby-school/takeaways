@@ -42,6 +42,7 @@ feature "Client Management" do
     fill_in "Name", with: "Spring special"
 
     #expect user to be taken back to origin client
+    expect(page).to have_select("Client", selected: "DMR")
     expect(page).to have_content "DMR"
 
   end
