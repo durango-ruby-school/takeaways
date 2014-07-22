@@ -33,6 +33,7 @@ group :development, :test do
   gem 'rspec-rails', '~> 2.14.2'
   gem 'factory_girl_rails', '~> 4.4.1'
   gem 'dotenv-rails'
+  gem 'pry'
 end
 
 group :test do
@@ -55,4 +56,3 @@ gem 'refills'
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
-
