@@ -4,8 +4,11 @@
 
 <%= link_to "Delete", @client, method: :delete, data:{confirm: "Are you sure?"} %>
 
+<%= link_to "Add Takeaway", new_takeaway_path %>
+
 <% @takeaways.each do |takeaway| %>
   <div class="takeaways">
     <%= link_to takeaway.name, takeaway %>
   </div>
+
 <% end %>
