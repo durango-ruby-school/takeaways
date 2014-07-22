@@ -4,7 +4,7 @@ class ClientsController < ApplicationController
     @clients = Client.all
   end
 
-  def new 
+  def new
     @client= Client.new
   end
 
@@ -17,11 +17,11 @@ class ClientsController < ApplicationController
       render 'new'
     end
   end
-  
+
   def edit
-    @client = Client.find params[:id]  
+    @client = Client.find params[:id]
   end
-  
+
   def destroy
     @client = Client.find params[:id]
     if @client.destroy
@@ -31,7 +31,7 @@ class ClientsController < ApplicationController
       render @client
     end
   end
-  
+
   def update
     @client = Client.find params[:id]
     if @client.update_attributes client_params
@@ -42,10 +42,10 @@ class ClientsController < ApplicationController
       render "edit"
     end
   end
-  
-      
+
     def show
       @client = Client.find params[:id]
+      @takeaways =@client.takeaways
     end
 
   private
