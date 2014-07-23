@@ -1,6 +1,10 @@
 require 'spec_helper'
 
 feature "Client Management" do
+  background do
+    sign_in
+  end
+  
   scenario "User Manages Clients" do
     visit root_path
     click_link "Clients"
