@@ -4,9 +4,13 @@ module SignInHelpers
     visit root_path(as: user)
   end
 
+  def sign_in
+    sign_in_as_role(:user)
+  end
+
 
 end
 
-Rspec.configure do |config|
+RSpec.configure do |config|
   config.include SignInHelpers, type: :feature
 end
