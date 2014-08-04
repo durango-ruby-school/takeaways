@@ -40,6 +40,7 @@ group :test do
   gem 'capybara', '~> 2.2.1'
   gem 'shoulda-matchers', '~> 2.6.0'
   gem 'launchy'
+  gem 'database_cleaner'
 end
 
 gem 'neat'
