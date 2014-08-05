@@ -2,39 +2,37 @@ require 'spec_helper'
 
 feature 'Placement Management' do
 
-  let(:rack) { create :brochure_rack, number_of_columns: 6, number_of_rows: 6, name: "Rack1" }
-  let(:client) { create :client, name: 'Animas Code Labs' }
-  let(:takeaway) { create :takeaway, client: client, name:"Summer" }
-
   scenario "Assign a takeaway to the rack from the rack screen" do
+    rack= create :brochure_rack
+    client= create :client, name: 'Animas Code Labs'
+    takeaway= create :takeaway, name: "Summer", client: client
+
     visit brochure_racks_path
-
     click_link rack.name
     click_link "Assign Takeaway"
 
-    select takeaway_fullname(client, takeaway), from: 'Takeaway'
+    select takeaway.name, from: 'Takeaway'
+    select rack.name, from: 'Brochure rack'
     click_button "Assign"
-
-    expect(page).to have_content takeaway_fullname(client, takeaway)
+    user_sees_flash_message "Success"
+    expect(page).to have_content takeaway.id
   end
 
-  def takeaway_fullname client, takeaway
-    "#{client.name} - #{takeaway.name}"
-  end
 
-  scenario "Assign a takeaway to a rack from the takeaway screen" do
-    visit takeaways_path
+#  scenario "Assign a takeaway to a rack from the takeaway screen" do
+#    rack= create :brochure_rack
+#    visit takeaways_path
 
-    click_link rack.name
-    click_link "Assign Takeaway"
+#    click_link rack.name
+#    click_link "Assign Takeaway"
 
-    select takeaway_fullname(client, takeaway), from: 'Takeaway'
-    click_button "Assign"
+#    select takeaway_fullname(client, takeaway), from: 'Takeaway'
+#    click_button "Assign"
 
-    expect(page).to have_content takeaway_fullname(client, takeaway)
-  end
+#    expect(page).to have_content takeaway_fullname(client, takeaway)
+#  end
 
-  def takeaway_fullname client, takeaway
-    "#{client.name} - #{takeaway.name}"
+  def user_sees_flash_message message
+    expect(page).to have_css ".flash", text: message
   end
 end

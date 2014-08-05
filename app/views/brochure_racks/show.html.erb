@@ -1,8 +1,8 @@
 <%= link_to "Back to Rack List", brochure_racks_path %>
 
 <h1><%= @brochure_rack.name %></h1>
-<%= @brochure_rack.number_of_rows %> rows | 
+<%= @brochure_rack.number_of_rows %> rows |
 <%= @brochure_rack.number_of_columns %> columns
 <%= link_to "Edit", edit_brochure_rack_path %>
 <%= link_to "Delete", @brochure_rack, method: :delete, data:{confirm: "Are you sure?"} %>
-
+<%= link_to "Assign Takeaway", new_placement_path %>
