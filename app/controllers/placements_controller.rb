@@ -6,12 +6,14 @@ class PlacementsController < ApplicationController
 
   def create
     @placement = Placement.new placement_params
-
     if @placement.save
-      redirect_to brochure_rack_path(@placement.brochure_rack), notice: "Success"
+      redirect_to placement_path(@placement), notice: "Success"
     else
       render "new"
     end
+  end
+
+  def show
   end
 
   def placement_params

@@ -8,6 +8,6 @@ Rails.application.routes.draw do
 
   resources :takeaways, only: [:index, :new, :create, :show, :edit, :update, :destroy]
 
-  resources :placements, only: [:new, :create]
+  resources :placements, only: [:new, :create, :show]
 
 end
