@@ -6,9 +6,6 @@
 
 <%= link_to "Add Takeaway", new_takeaway_path(client_id: @client.id) %>
 
-<%= link_to "Assign Takeaway", new_placement_path %>
-
-
 <% @takeaways.each do |takeaway| %>
   <div class="takeaways">
     <%= link_to takeaway.name, takeaway %>

@@ -4,15 +4,15 @@ feature 'Placement Management' do
 
   scenario "Assign a takeaway to the rack from the rack screen" do
     rack= create :brochure_rack
-    client= create :client, name: 'Animas Code Labs'
-    takeaway= create :takeaway, name: "Summer", client: client
+    takeaway= create :takeaway
 
     visit brochure_racks_path
     click_link rack.name
     click_link "Assign Takeaway"
 
+    expect(page).to have_select("Brochure rack", selected: rack.name)
+
     select takeaway.name, from: 'Takeaway'
-    select rack.name, from: 'Brochure rack'
     click_button "Assign"
     user_sees_flash_message "Success"
 
@@ -21,17 +21,16 @@ feature 'Placement Management' do
 
   scenario "Assign a takeaway to a rack from the takeaway screen" do
     rack= create :brochure_rack
-    client= create :client, name: 'Animas Code Labs'
-    takeaway= create :takeaway, name: "Summer", client: client
+    takeaway= create :takeaway
 
     visit takeaway_path(takeaway)
-
     click_link "Assign Takeaway"
 
-    select takeaway.name, from: 'Takeaway'
+    expect(page).to have_select("Takeaway", selected: takeaway.name)
     select rack.name, from: 'Brochure rack'
     click_button "Assign"
     user_sees_flash_message "Success"
+
     expect(page).to have_content @takeaway
   end
 

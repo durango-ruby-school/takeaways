@@ -1,7 +1,7 @@
 class PlacementsController < ApplicationController
 
   def new
-    @placement = Placement.new
+    @placement= Placement.new takeaway_id: params[:takeaway_id], brochure_rack_id: params[:brochure_rack_id]
   end
 
   def create

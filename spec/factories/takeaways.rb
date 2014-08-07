@@ -3,6 +3,6 @@
 FactoryGirl.define do
   factory :takeaway do
     name "MyString"
-    client nil
+    client
   end
 end
