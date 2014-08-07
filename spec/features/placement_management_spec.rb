@@ -1,7 +1,10 @@
 require 'spec_helper'
 
 feature 'Placement Management' do
-
+  background do
+    sign_in
+  end
+  
   scenario "Assign a takeaway to the rack from the rack screen" do
     rack= create :brochure_rack
     takeaway= create :takeaway
@@ -24,6 +27,7 @@ feature 'Placement Management' do
     takeaway= create :takeaway
 
     visit takeaway_path(takeaway)
+
     click_link "Assign Takeaway"
 
     expect(page).to have_select("Takeaway", selected: takeaway.name)
