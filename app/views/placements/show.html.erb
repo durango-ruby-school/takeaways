@@ -1,5 +1,5 @@
-<h1><%= @placement.brochure_rack.name %></h1>
-<h2><%= @placement.takeaway.name %></h2>
+<h1><%= link_to @placement.brochure_rack.name, @placement.brochure_rack %></h1>
+<h2><%= link_to @placement.takeaway.name, @placement.takeaway %></h2>
 
 <%= link_to "Back to Brochure Racks", brochure_racks_path %>
 <%= link_to "Back to Takeaway", takeaways_path %>
