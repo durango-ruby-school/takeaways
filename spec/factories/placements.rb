@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :placement do
-    brochure_rack nil
-    takeaway nil
+    brochure_rack
+    takeaway
   end
 end

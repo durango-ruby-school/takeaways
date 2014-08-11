@@ -14,6 +14,7 @@ class PlacementsController < ApplicationController
   end
 
   def show
+    @placement = Placement.find params[:id]
   end
 
   def placement_params

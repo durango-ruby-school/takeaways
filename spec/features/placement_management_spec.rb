@@ -4,7 +4,7 @@ feature 'Placement Management' do
   background do
     sign_in
   end
-  
+
   scenario "Assign a takeaway to the rack from the rack screen" do
     rack= create :brochure_rack
     takeaway= create :takeaway
@@ -36,6 +36,15 @@ feature 'Placement Management' do
     user_sees_flash_message "Success"
 
     expect(page).to have_content @takeaway
+  end
+
+
+  scenario "View rack and takeaway on the placement page" do
+    placement= create :placement
+    visit placement_path(placement)
+
+    expect(page).to have_content placement.brochure_rack.name
+    expect(page).to have_content placement.takeaway.name
   end
 
   def user_sees_flash_message message
