@@ -8,8 +8,15 @@
 <%= link_to "Assign Takeaway", new_placement_path(brochure_rack_id: @brochure_rack) %>
 
 
-<% @brochure_rack.placements.each do |placement| %>
-  <%= div_for(placement) do %>
-    <%= placement.takeaway.name %>
+<table>
+  <tr>
+    <th>Client</th>
+    <th>Takeaway</th>
+  </tr>
+  <% @brochure_rack.placements.each do |placement| %>
+    <%= content_tag_for(:tr, placement)  do %>
+      <td><%= link_to placement.takeaway.client.name, placement.takeaway.client %></td>
+      <td><%= link_to placement.takeaway.name, placement.takeaway %></td>
+    <% end %>
   <% end %>
-<% end %>
+</table>
