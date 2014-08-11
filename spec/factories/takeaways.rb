@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :takeaway do
-    name "MyString"
+    sequence(:name) { |n| "Takeaway #{n}" }
     client
   end
 end
