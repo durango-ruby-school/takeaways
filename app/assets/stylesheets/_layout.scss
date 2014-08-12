@@ -1,16 +1,22 @@
 body{
-  background-color: #7eb770 ;
+  background-color: desaturate(darken($base-accent-color, 20), 30);
 }
 
 .welcome-message{
-  color: blue;
+  color: desaturate(darken($base-accent-color, 20), 30);
   text-align: center;
   font-family: Trebuchet MS, Arial, Sans;
   font-size: 60px;
 }
 
+.main{
+  background-color: white;
+  padding-bottom: 1em;
+}
+
 .container{
   @include outer-container;
+  min-height: 30em;
 }
 
 .create-rack-message{
@@ -24,6 +30,11 @@ body{
   color: blue;
   font-family: Trebuchet MS, Arial, Sans;
 }
+.page-header {
+  a {
+    float: right;
+  }
+}
 
 .login{
   text-align: center;
@@ -34,9 +45,6 @@ body{
   color: blue;
   font-family: Trebuchet MS, Arial, Sans;
 }
-
-
-
 
 .contact_form label {
     width:150px;

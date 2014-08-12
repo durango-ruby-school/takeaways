@@ -8,10 +8,14 @@
 </head>
 <body>
   <%= render "refills/navigation" %>
-  <div class="container">
-    <%= render "shared/flash" %>
+  <div class="main">
 
-    <%= yield %>
+    <div class="container">
+      <%= render "shared/flash" %>
+
+      <%= yield %>
+    </div>
   </div>
+  <%= render "refills/footer" %>
 </body>
 </html>

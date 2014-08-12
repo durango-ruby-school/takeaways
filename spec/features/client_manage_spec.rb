@@ -4,10 +4,12 @@ feature "Client Management" do
   background do
     sign_in
   end
-  
+
   scenario "User Manages Clients" do
     visit root_path
-    click_link "Clients"
+    within ".navigation" do
+      click_link "Clients"
+    end
     click_link "New Client"
     fill_in  "Name", :with => "Durango Space"
     click_button "Create"

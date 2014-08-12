@@ -18,7 +18,7 @@ $(function() {
       $(".nav .nav-link").each(function() {
         $(this).removeClass("active-nav-item");
       });
-      $(this).addClass("active-nav-item"); 
+      $(this).addClass("active-nav-item");
       $(".nav .more").removeClass("active-nav-item");
     });
   });
@@ -30,24 +30,19 @@ $(function() {
     <div class="nav">
       <ul id="navigation-menu">
         <li class="nav-link"><%= link_to "Home", root_path %></li>
-        <li class="nav-link"><a href="http://www.fastsigns.com/Project-Services">Services</a></li>
-        <li class="nav-link"><a href="http://www.fastsigns.com/560-durango-co">About Us</a></li>
-        <li class="nav-link"><a href="mailto:560@fastsigns.com">Contact Us</a></li>
-        <li class="nav-link more"><a href="javascript:void(0)">Admin</a>
-          <ul class="submenu">
-            <li><a href="javascript:void(0)">Submenu Item</a></li>
-            <li><a href="javascript:void(0)">Another Item</a></li>
-          </ul>
+        <li class="nav-link"><%= link_to "Clients", clients_path %></li>
+        <li class="nav-link"><%= link_to "Racks", brochure_racks_path %></li>
+        <li class="nav-link">
+          <% if signed_in? %>
+            Welcome <%= current_user.email %>
+            <%= link_to 'Sign out', sign_out_path, method: :delete %>
+          <% else %>
+            <%= link_to 'Sign in', sign_in_path %>
+          <% end %>
         </li>
-        <% if signed_in? %>
-        Welcome <%= current_user.email %>
-        <li class="nav-link"><%= link_to 'Sign out', sign_out_path, method: :delete %></li>
-        <% else %>
-        <li class="nav-link"><%= link_to 'Sign in', sign_in_path %></li>
-        <% end %> 
       </ul>
     </div>
     <div class="navigation-tools">
     </div>
-  </div>  
+  </div>
 </header>

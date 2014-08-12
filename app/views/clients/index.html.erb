@@ -1,7 +1,7 @@
-<h1>Clients</h1>
-
-<%= link_to "New Client", new_client_path =%>
-
+<div class="page-header">
+  <h1>Clients</h1>
+  <%= link_to "New Client", new_client_path %>
+</div>
 <% @clients.each do |client| %>
   <div class="clients">
     <%= link_to client.name, client %>
