@@ -35,6 +35,7 @@ group :development, :test do
   gem 'factory_girl_rails', '~> 4.4.1'
   gem 'dotenv-rails'
   gem 'pry'
+  gem 'pry-byebug'
 end
 
 group :test do
