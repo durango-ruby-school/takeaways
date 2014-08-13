@@ -9,12 +9,12 @@ feature 'manage racks' do
   scenario "Add a stocking record for a takeaway" do
     placement=create :placement
     visit placement_path(placement)
-
+    
     click_link "Add Stocking"
-    fill_in "Date", with: "2011-07-15"
-    fill_in "Quanity Stocked", with: 45
+    #select "2013", from: "stocking_stocked_on_1i"
+    fill_in "Quantity Stocked", with: 45
 
-    click_button "Create Stocking Record"
+    click_button "Create Stocking"
     user_sees_flash_message "Successfully Updated"
   end
 end
