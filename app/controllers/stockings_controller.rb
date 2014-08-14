@@ -14,6 +14,10 @@ class StockingsController < ApplicationController
     else
       render "new"
     end
+
+    def show
+      @stocking = Stocking.find params[:id]
+    end
   end
 
 private

@@ -2,5 +2,8 @@
 
 FactoryGirl.define do
   factory :stocking do
+    placement
+    quantity 1
+    stocked_on "2010-01-01"
   end
 end
