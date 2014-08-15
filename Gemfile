@@ -36,6 +36,7 @@ group :development, :test do
   gem 'dotenv-rails'
   gem 'pry'
   gem 'pry-byebug'
+  gem 'better_errors'
 end
 
 group :test do
