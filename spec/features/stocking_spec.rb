@@ -10,11 +10,10 @@ feature 'manage racks' do
     visit placement_path(placement)
 
     click_link "Add Stocking"
-    #select "2013", from: "stocking_stocked_on_1i"
     fill_in "Quantity Stocked", with: 45
 
     click_button "Create Stocking"
-    user_sees_flash_message "Successfully Updated"
+    user_sees_flash_message "Successfully Created"
   end
 
   scenario "View stocking record on a placement page" do
@@ -24,5 +23,19 @@ feature 'manage racks' do
     visit placement_path(placement)
 
     user_sees_object stocking
+  end
+
+  scenario "Ability to edit stocking record quantity" do
+    placement=create :placement
+    stocking=create :stocking, placement: placement
+
+    visit placement_path(placement)
+
+    click_link "Edit"
+
+    fill_in "Quantity Stocked", with: 9999
+    click_button "Update Stocking"
+
+    expect(page).to have_content(9999)
   end
 end

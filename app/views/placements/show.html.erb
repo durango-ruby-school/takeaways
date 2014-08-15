@@ -10,11 +10,13 @@
   <tr>
     <th>Date</th>
     <th>Quantity</th>
+    <th></th>
   </tr>
   <% @placement.stockings.each do |stocking| %>
     <%= content_tag_for(:tr, stocking) do %>
       <td><%= stocking.stocked_on %></td>
       <td><%= stocking.quantity %></td>
+      <td><%= link_to "Edit", edit_placement_stocking_path(@placement, stocking) %></td>
     <% end %>
   <% end %>
 </table>
