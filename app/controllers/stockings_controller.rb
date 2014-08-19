@@ -20,6 +20,14 @@ class StockingsController < ApplicationController
     @stocking = Stocking.find params[:id]
   end
 
+  def destroy
+    @stocking = Stocking.find params[:id]
+    @placement= Placement.find params[:placement_id]
+    @stocking.destroy
+    flash[:notice] = "Successfully Deleted"
+    redirect_to @placement
+  end
+
   def edit
     @stocking = Stocking.find params[:id]
     @placement= Placement.find params[:placement_id]

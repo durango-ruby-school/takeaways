@@ -32,10 +32,18 @@ feature 'manage racks' do
     visit placement_path(placement)
 
     click_link "Edit"
-
     fill_in "Quantity Stocked", with: 9999
     click_button "Update Stocking"
 
     expect(page).to have_content(9999)
+  end
+
+  scenario "Delete a stocking record" do
+    placement=create :placement
+    stocking=create :stocking, placement: placement
+
+    visit placement_path(placement)
+    click_link "Delete"
+    expect(page).to have_content "Successfully Deleted"
   end
 end
