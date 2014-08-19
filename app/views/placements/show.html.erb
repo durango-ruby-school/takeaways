@@ -3,3 +3,21 @@
 
 <%= link_to "Back to Brochure Racks", brochure_racks_path %>
 <%= link_to "Back to Takeaway", takeaways_path %>
+<%= link_to "Add Stocking", new_placement_stocking_path(@placement) %>
+
+<table>
+  <tr>
+    <th>Date</th>
+    <th>Quantity</th>
+    <th></th>
+  </tr>
+  <% @placement.stockings.each do |stocking| %>
+    <%= content_tag_for(:tr, stocking) do %>
+      <td><%= stocking.stocked_on %></td>
+      <td><%= stocking.quantity %></td>
+      <td><%= link_to "Edit", edit_stocking_path( stocking) %> |
+      <%= link_to "Delete", stocking_path(stocking),
+       method: :delete, data:{confirm: "Are you sure?"}%></td>
+    <% end %>
+  <% end %>
+</table>
