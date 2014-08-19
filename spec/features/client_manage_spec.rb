@@ -4,7 +4,7 @@ feature "Client Management" do
   background do
     sign_in
   end
-  
+
   scenario "User Manages Clients" do
     visit root_path
     click_link "Clients"
@@ -48,6 +48,5 @@ feature "Client Management" do
     #expect user to be taken back to origin client
     expect(page).to have_select("Client", selected: "DMR")
     expect(page).to have_content "DMR"
-
   end
 end
