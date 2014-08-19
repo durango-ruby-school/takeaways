@@ -20,31 +20,29 @@ class StockingsController < ApplicationController
     @stocking = Stocking.find params[:id]
   end
 
-  def destroy
-    @stocking = Stocking.find params[:id]
-    @placement= Placement.find params[:placement_id]
-    @stocking.destroy
-    flash[:notice] = "Successfully Deleted"
-    redirect_to @placement
-  end
-
   def edit
     @stocking = Stocking.find params[:id]
-    @placement= Placement.find params[:placement_id]
   end
 
   def update
     @stocking = Stocking.find params[:id]
-    @placement= Placement.find params[:placement_id]
 
     if @stocking.update_attributes stocking_params
       flash[:notice]= "Successfully Updated"
-      redirect_to [@placement]
+      redirect_to @stocking.placement
     else
       render "edit"
     end
   end
-private
+
+  def destroy
+    @stocking = Stocking.find params[:id]
+    @stocking.destroy
+    flash[:notice] = "Successfully Deleted"
+    redirect_to @stocking.placement
+  end
+
+  private
 
   def stocking_params
     params.require(:stocking).permit(:stocked_on, :quantity, :edit)

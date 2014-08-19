@@ -9,7 +9,9 @@ Rails.application.routes.draw do
   resources :takeaways, only: [:index, :new, :create, :show, :edit, :update, :destroy]
 
   resources :placements, only: [:new, :create, :show] do
-    resources :stockings, only: [:new, :create, :edit, :update, :destroy]
+    resources :stockings, only: [:new, :create]
   end
+
+  resources :stockings, only: [:edit, :update, :destroy]
 
 end
