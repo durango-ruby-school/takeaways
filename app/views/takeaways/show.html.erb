@@ -6,6 +6,6 @@
 
 <% @takeaway.placements.each do |placement| %>
   <%= div_for(placement) do %>
-    <%= placement.brochure_rack.name %>
+    <td><%= link_to placement.brochure_rack.name, placement.brochure_rack %></td>
   <% end %>
 <% end %>
