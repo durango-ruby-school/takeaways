@@ -30,11 +30,21 @@ feature 'manage takeaways' do
     expect(page).to_not have_content "Railroad"
   end
 
+  scenario "View list of all racks for a takeaway" do
+    takeaway = create :takeaway
+    related_placements = create_list :placement, 2, takeaway: takeaway
+    unrelated_placement = create :placement
+
+    visit takeaway_path(takeaway)
+
+    user_sees_objects(related_placements)
+    user_does_not_see_object(unrelated_placement)
+  end
+
   def update_a_takeaway takeaway_name
     click_link "Edit"
     fill_in "Name", with: takeaway_name
     select 'Railroad', from: 'Client'
     click_button "Update Takeaway"
   end
-
 end

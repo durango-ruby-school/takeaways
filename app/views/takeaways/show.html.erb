@@ -1,7 +1,11 @@
 <h1> <%= @takeaway.name %></h1>
 
 <%= link_to "Edit", edit_takeaway_path(@takeaway) %>
-
 <%= link_to "Delete", @takeaway, method: :delete, data:{confirm: "Are you sure?"} %>
-
 <%= link_to "Assign Takeaway", new_placement_path(takeaway_id: @takeaway) %>
+
+<% @takeaway.placements.each do |placement| %>
+  <%= div_for(placement) do %>
+    <%= placement.brochure_rack.name %>
+  <% end %>
+<% end %>
