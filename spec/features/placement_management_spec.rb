@@ -60,8 +60,4 @@ feature 'Placement Management' do
     expect(page).to have_content "Takeaway"
 
   end
-
-  def user_sees_flash_message message
-    expect(page).to have_css ".flash", text: message
-  end
 end

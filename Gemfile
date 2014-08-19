@@ -30,11 +30,17 @@ gem 'clearance'
 gem 'spring',        group: :development
 gem "spring-commands-rspec", group: :development
 
+group :development do
+  gem 'better_errors'
+  gem "binding_of_caller"
+end
+
 group :development, :test do
   gem 'rspec-rails', '~> 2.14.2'
   gem 'factory_girl_rails', '~> 4.4.1'
   gem 'dotenv-rails'
   gem 'pry'
+  gem 'pry-byebug'
 end
 
 group :test do

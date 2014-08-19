@@ -30,10 +30,6 @@ feature 'manage takeaways' do
     expect(page).to_not have_content "Railroad"
   end
 
-  def user_sees_flash_message message
-    expect(page).to have_css ".flash", text: message
-  end
-
   def update_a_takeaway takeaway_name
     click_link "Edit"
     fill_in "Name", with: takeaway_name
