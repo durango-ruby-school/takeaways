@@ -4,7 +4,7 @@ describe Placement do
   describe "relationships" do
     it{should belong_to(:brochure_rack)}
     it{should belong_to(:takeaway)}
-    it{should have_many(:stockings)}
+    it{should have_many(:stockings).dependent(:destroy)}
   end
 
   describe "validations" do
