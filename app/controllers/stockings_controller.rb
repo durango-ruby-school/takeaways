@@ -10,7 +10,7 @@ class StockingsController < ApplicationController
     @stocking= @placement.stockings.build stocking_params
     if @stocking.save
       flash[:notice]= "Successfully Created"
-      redirect_to [@placement]
+      redirect_to @placement
     else
       render "new"
     end
