@@ -18,7 +18,7 @@ class TakeawaysController < ApplicationController
   end
 
   def show
-    @takeaway= Takeaway.find params[:id]
+    @takeaway= Takeaway.find(params[:id]).decorate
   end
 
   def edit
