@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Client do
+describe Client, "relationships" do
   it {should have_many(:takeaways).dependent(:destroy)}
 
   describe "validations" do
