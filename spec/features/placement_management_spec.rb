@@ -30,7 +30,7 @@ feature 'Placement Management' do
 
     click_link "Assign Takeaway"
 
-    expect(page).to have_select("Takeaway", selected: takeaway.name)
+    expect(page).to have_select("Takeaway", selected: takeaway.decorate.name)
     select rack.name, from: 'Brochure rack'
     click_button "Assign"
     user_sees_flash_message "Success"
@@ -59,9 +59,5 @@ feature 'Placement Management' do
     click_link "Back to Takeaway"
     expect(page).to have_content "Takeaway"
 
-  end
-
-  def user_sees_flash_message message
-    expect(page).to have_css ".flash", text: message
   end
 end

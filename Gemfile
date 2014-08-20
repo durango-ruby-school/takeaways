@@ -13,7 +13,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer',  platforms: :ruby
-
+gem 'draper'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
@@ -30,11 +30,17 @@ gem 'clearance'
 gem 'spring',        group: :development
 gem "spring-commands-rspec", group: :development
 
+group :development do
+  gem 'better_errors'
+  gem "binding_of_caller"
+end
+
 group :development, :test do
   gem 'rspec-rails', '~> 2.14.2'
   gem 'factory_girl_rails', '~> 4.4.1'
   gem 'dotenv-rails'
   gem 'pry'
+  gem 'pry-byebug'
 end
 
 group :test do

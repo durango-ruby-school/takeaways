@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140729000931) do
+ActiveRecord::Schema.define(version: 20140820180746) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,11 +24,15 @@ ActiveRecord::Schema.define(version: 20140729000931) do
     t.datetime "updated_at"
   end
 
+  add_index "brochure_racks", ["name"], name: "index_brochure_racks_on_name", unique: true, using: :btree
+
   create_table "clients", force: true do |t|
     t.string   "name",       null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "clients", ["name"], name: "index_clients_on_name", unique: true, using: :btree
 
   create_table "placements", force: true do |t|
     t.integer  "brochure_rack_id", null: false
@@ -40,6 +44,16 @@ ActiveRecord::Schema.define(version: 20140729000931) do
   add_index "placements", ["brochure_rack_id"], name: "index_placements_on_brochure_rack_id", using: :btree
   add_index "placements", ["takeaway_id"], name: "index_placements_on_takeaway_id", using: :btree
 
+  create_table "stockings", force: true do |t|
+    t.date     "stocked_on",   null: false
+    t.integer  "placement_id", null: false
+    t.integer  "quantity",     null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "stockings", ["placement_id"], name: "index_stockings_on_placement_id", using: :btree
+
   create_table "takeaways", force: true do |t|
     t.string   "name",       null: false
     t.integer  "client_id",  null: false
@@ -48,6 +62,7 @@ ActiveRecord::Schema.define(version: 20140729000931) do
   end
 
   add_index "takeaways", ["client_id"], name: "index_takeaways_on_client_id", using: :btree
+  add_index "takeaways", ["name", "client_id"], name: "index_takeaways_on_name_and_client_id", unique: true, using: :btree
 
   create_table "users", force: true do |t|
     t.datetime "created_at",                     null: false
