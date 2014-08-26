@@ -65,6 +65,9 @@ GEM
     debug_inspector (0.0.2)
     debugger-linecache (1.2.0)
     diff-lcs (1.2.5)
+    disposable (0.0.6)
+      representable (~> 2.0.3)
+      uber
     dotenv (0.11.1)
       dotenv-deployment (~> 0.0.2)
     dotenv-deployment (0.0.2)
@@ -144,6 +147,15 @@ GEM
     rdoc (4.1.1)
       json (~> 1.4)
     refills (0.0.2)
+    reform (1.1.0)
+      activemodel
+      disposable (~> 0.0.5)
+      representable (~> 2.0.3)
+      uber (~> 0.0.8)
+    representable (2.0.3)
+      multi_json
+      nokogiri
+      uber (~> 0.0.7)
     request_store (1.0.6)
     rspec-core (2.14.8)
     rspec-expectations (2.14.5)
@@ -194,6 +206,7 @@ GEM
       coffee-rails
     tzinfo (1.1.0)
       thread_safe (~> 0.1)
+    uber (0.0.8)
     uglifier (2.5.0)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
@@ -224,6 +237,7 @@ DEPENDENCIES
   rails (= 4.1.1)
   rails_12factor
   refills
+  reform
   rspec-rails (~> 2.14.2)
   sass-rails (~> 4.0.3)
   sdoc (~> 0.4.0)
