@@ -31,9 +31,16 @@ body{
   font-family: Trebuchet MS, Arial, Sans;
 }
 .page-header {
-  a {
-    float: right;
-  }
+  text-align: center;
+  margin-bottom: 2em;
+}
+
+.table-title {
+  margin-bottom: 1em;
+}
+
+.wide-table {
+  width: 100%;
 }
 
 .login{

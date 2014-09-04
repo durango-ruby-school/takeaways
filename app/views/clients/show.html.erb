@@ -1,14 +1,21 @@
-<h1> <%= @client.name %></h1>
-
-<%= link_to "Edit", edit_client_path(@client) %>
-
-<%= link_to "Delete", @client, method: :delete, data:{confirm: "Are you sure?"} %>
-
+<%= link_to "Back to Clients", clients_path %>
+<div class="page-header">
+  <h1><%= @client.name %></h1>
+  <%= link_to "Edit", edit_client_path(@client) %> | 
+  <%= link_to "Delete", @client, method: :delete, data:{confirm: "Are you sure?"} %>
+</div>
+<div class="table-title">
+<h3>Takeaways</h3>
 <%= link_to "Add Takeaway", new_takeaway_path(client_id: @client.id) %>
-
+</div>
+<table class="table-borders wide-table">
 <% @takeaways.each do |takeaway| %>
+  <tr>
+    <td>
   <div class="takeaways">
     <%= link_to takeaway.name, takeaway %>
   </div>
-
+    </td>
+  </tr>
 <% end %>
+</table>

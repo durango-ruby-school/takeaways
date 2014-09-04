@@ -1,11 +1,15 @@
-<h1><%= link_to @placement.brochure_rack.name, @placement.brochure_rack %></h1>
-<h2><%= link_to @placement.takeaway.name, @placement.takeaway %></h2>
+<%= link_to "Back to Racks", brochure_racks_path %>
 
-<%= link_to "Back to Brochure Racks", brochure_racks_path %>
-<%= link_to "Back to Takeaway", takeaways_path %>
-<%= link_to "Add Stocking", new_placement_stocking_path(@placement) %>
+<div class="page-header">
+  <h1><%= link_to @placement.brochure_rack.name, @placement.brochure_rack %></h1>
+  <h2><%= link_to @placement.takeaway.name, @placement.takeaway %></h2>
+</div>
 
-<table>
+<div class="table-title">
+  <%= link_to "Add Stocking", new_placement_stocking_path(@placement) %>
+</div>
+
+<table class="wide-table table-borders">
   <tr>
     <th>Date</th>
     <th>Quantity</th>
