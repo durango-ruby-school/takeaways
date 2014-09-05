@@ -47,17 +47,11 @@ feature 'Placement Management' do
     expect(page).to have_content placement.takeaway.name
   end
 
-  scenario "Link all takeaways and racks on placement page" do
+  scenario "Link to racks on placement page" do
     placement=create :placement
     visit placement_path(placement)
 
-    click_link "Back to Brochure Racks"
-    expect(page).to have_content "Brochure Rack"
-
-    visit placement_path(placement)
-
-    click_link "Back to Takeaway"
-    expect(page).to have_content "Takeaway"
-
+    click_link "Back to Racks"
+    expect(page).to have_content "Racks"
   end
 end
