@@ -32,17 +32,17 @@ $(function() {
         <li class="nav-link"><%= link_to "Home", root_path %></li>
         <li class="nav-link"><%= link_to "Clients", clients_path %></li>
         <li class="nav-link"><%= link_to "Racks", brochure_racks_path %></li>
-        <li class="nav-link">
-          <% if signed_in? %>
-            Welcome <%= current_user.email %>
-            <%= link_to 'Sign out', sign_out_path, method: :delete %>
-          <% else %>
-            <%= link_to 'Sign in', sign_in_path %>
-          <% end %>
-        </li>
       </ul>
     </div>
     <div class="navigation-tools">
+      <div class="current-user">
+        <% if signed_in? %>
+          Welcome <%= current_user.email %>
+          <%= link_to 'Sign out', sign_out_path, method: :delete %>
+        <% else %>
+          <%= link_to 'Sign in', sign_in_path %>
+        <% end %>
+      </div>
     </div>
   </div>
 </header>
