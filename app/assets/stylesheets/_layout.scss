@@ -43,6 +43,10 @@ body{
   width: 100%;
 }
 
+.side-padded {
+  @include pad(0 default 0 default);
+}
+
 .login{
   text-align: center;
 }

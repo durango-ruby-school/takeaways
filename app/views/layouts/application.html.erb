@@ -12,8 +12,9 @@
 
     <div class="container">
       <%= render "shared/flash" %>
-
-      <%= yield %>
+      <div class="side-padded">
+        <%= yield %>
+      </div>
     </div>
   </div>
   <%= render "refills/footer" %>
