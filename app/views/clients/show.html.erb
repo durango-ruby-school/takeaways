@@ -4,7 +4,7 @@
   <%= link_to "Edit", edit_client_path(@client) %> | 
   <%= link_to "Delete", @client, method: :delete, data:{confirm: "Are you sure?"} %>
 </div>
-<div class="table-title">
+<div class="action-panel">
 <h3>Takeaways</h3>
 <%= link_to "Add Takeaway", new_takeaway_path(client_id: @client.id) %>
 </div>
