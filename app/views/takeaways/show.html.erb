@@ -7,4 +7,18 @@
     <i class="fa fa-trash"></i>
   <% end %>
 </div>
-<%= link_to "Assign Takeaway", new_placement_path(takeaway_id: @takeaway) %>
+
+<div class="action-panel">
+  <%= link_to "Assign Takeaway", new_placement_path(takeaway_id: @takeaway) %>
+</div>
+
+<table class="wide-table table-borders">
+  <tr>
+    <th>Racks</th>
+  </tr>
+  <% @placements.each do |placement| %>
+    <%= content_tag_for(:tr, placement) do %>
+      <td><%= link_to placement.brochure_rack.name, placement %></td>
+    <% end %>
+  <% end %>
+</table>

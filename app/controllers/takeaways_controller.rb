@@ -19,6 +19,8 @@ class TakeawaysController < ApplicationController
 
   def show
     @takeaway= Takeaway.find params[:id]
+
+    @placements = Placement.where(takeaway_id: @takeaway.id)
   end
 
   def edit
@@ -50,5 +52,4 @@ class TakeawaysController < ApplicationController
   def takeaway_params
     params.require(:takeaway).permit(:name, :client_id)
   end
-
 end

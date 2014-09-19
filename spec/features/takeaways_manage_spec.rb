@@ -30,11 +30,20 @@ feature 'manage takeaways' do
     expect(page).to_not have_content "Railroad"
   end
 
+  scenario 'View assigned racks on takeaway page' do
+    client = create :client
+    takeaway = create :takeaway, client: client
+    rack = create :brochure_rack, name: 'Rack123'
+    placement = create :placement, brochure_rack: rack, takeaway: takeaway
+    
+    visit takeaway_path(takeaway)
+    expect(page).to have_content 'Rack123'
+  end
+
   def update_a_takeaway takeaway_name
     click_link "edit_takeaway"
     fill_in "Name", with: takeaway_name
     select 'Railroad', from: 'Client'
     click_button "Update Takeaway"
   end
-
 end
