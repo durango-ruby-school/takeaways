@@ -43,13 +43,9 @@ feature "Client Management" do
     visit clients_path
     click_link "DMR"
     click_link 'Add Takeaway'
+    fill_in "Name", with: "Spring special"
     click_button "Create Takeaway"
 
-    fill_in "Name", with: "Spring special"
-
-    #expect user to be taken back to origin client
-    expect(page).to have_select("Client", selected: "DMR")
-    expect(page).to have_content "DMR"
-
+    user_sees_flash_message /success/i
   end
 end

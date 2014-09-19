@@ -16,7 +16,7 @@
   <tr>
     <th>Racks</th>
   </tr>
-  <% @placements.each do |placement| %>
+  <% @takeaway.placements.each do |placement| %>
     <%= content_tag_for(:tr, placement) do %>
       <td><%= link_to placement.brochure_rack.name, placement %></td>
     <% end %>

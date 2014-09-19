@@ -1,5 +1,5 @@
 <%= simple_form_for @placement do |f| %>
-  <%= f.input :takeaway_id, collection: Takeaway.all %>
+  <%= f.input :takeaway_id, collection: Takeaway.all.decorate %>
   <%= f.input :brochure_rack_id, collection: BrochureRack.all %>
 
   <%= f.submit 'Assign' %>
