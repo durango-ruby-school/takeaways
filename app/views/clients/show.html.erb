@@ -8,18 +8,22 @@
     <i class="fa fa-trash"></i>
   <% end %>
 </div>
+
 <div class="action-panel">
-<h3>Takeaways</h3>
-<%= link_to "Add Takeaway", new_takeaway_path(client_id: @client.id) %>
+  <%= link_to "Add Takeaway", new_takeaway_path(client_id: @client.id) %>
 </div>
+
 <table class="table-borders wide-table">
-<% @takeaways.each do |takeaway| %>
   <tr>
-    <td>
-  <div class="takeaways">
-    <%= link_to takeaway.name, takeaway %>
-  </div>
-    </td>
+    <th>Takeaways</th>
   </tr>
-<% end %>
+  <% @takeaways.each do |takeaway| %>
+    <tr>
+      <td>
+    <div class="takeaways">
+      <%= link_to takeaway.name, takeaway %>
+    </div>
+      </td>
+    </tr>
+  <% end %>
 </table>

@@ -18,13 +18,11 @@
 
 <table class="wide-table table-borders">
   <tr>
-    <th>Client</th>
-    <th>Takeaway</th>
+    <th>Assigned Takeaways</th>
   </tr>
   <% @brochure_rack.placements.each do |placement| %>
     <%= content_tag_for(:tr, placement)  do %>
-      <td><%= link_to placement.takeaway.client.name, placement.takeaway.client %></td>
-      <td><%= link_to placement.takeaway.name, placement %></td>
+      <td><%= link_to placement.takeaway.decorate.name, placement %></td>
     <% end %>
   <% end %>
 </table>
