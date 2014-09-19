@@ -35,8 +35,8 @@ GEM
       erubis (>= 2.6.6)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
-    bourbon (3.1.8)
-      sass (>= 3.2.0)
+    bourbon (3.2.3)
+      sass (~> 3.2)
       thor
     builder (3.2.2)
     byebug (2.7.0)

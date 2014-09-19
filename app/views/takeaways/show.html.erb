@@ -1,11 +1,24 @@
-<h1> <%= @takeaway.name %></h1>
-
-<%= link_to "Edit", edit_takeaway_path(@takeaway) %>
-<%= link_to "Delete", @takeaway, method: :delete, data:{confirm: "Are you sure?"} %>
-<%= link_to "Assign Takeaway", new_placement_path(takeaway_id: @takeaway) %>
-
-<% @takeaway.placements.each do |placement| %>
-  <%= div_for(placement) do %>
-    <td><%= link_to placement.brochure_rack.name, placement.brochure_rack %></td>
+<div class="page-header">
+  <h1><%= @takeaway.name %></h1>
+  <%= link_to edit_takeaway_path(@takeaway), id: "edit_takeaway" do %>
+    <i class="fa fa-pencil"></i>
   <% end %>
-<% end %>
+  <%= link_to @takeaway, id: "delete_takeaway", method: :delete, data:{confirm: "Are you sure?"} do %>
+    <i class="fa fa-trash"></i>
+  <% end %>
+</div>
+
+<div class="action-panel">
+  <%= link_to "Assign Takeaway", new_placement_path(takeaway_id: @takeaway) %>
+</div>
+
+<table class="wide-table table-borders">
+  <tr>
+    <th>Racks</th>
+  </tr>
+  <% @takeaway.placements.each do |placement| %>
+    <%= content_tag_for(:tr, placement) do %>
+      <td><%= link_to placement.brochure_rack.name, placement %></td>
+    <% end %>
+  <% end %>
+</table>

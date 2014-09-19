@@ -16,7 +16,7 @@ feature 'manage racks' do
     user_sees_flash_message "Successfully Updated"
     expect(page).to have_content "DMR"
 
-    click_link "Delete"
+    click_link "delete_rack"
     expect(page).not_to have_content "DMR"
   end
 
@@ -29,7 +29,7 @@ feature 'manage racks' do
   end
 
   def update_a_rack rack_name
-    click_link "Edit"
+    click_link "edit_rack"
     fill_in "Name", with: rack_name
     fill_in "Number of Rows", with: "8"
     fill_in "Number of Columns", with: "6"

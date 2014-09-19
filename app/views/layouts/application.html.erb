@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
   <title>Takeaways App</title>
   <%= stylesheet_link_tag    'application', media:      'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-      turbolinks-track' => true %>
@@ -8,10 +11,15 @@
 </head>
 <body>
   <%= render "refills/navigation" %>
-  <div class="container">
-    <%= render "shared/flash" %>
+  <div class="main">
 
-    <%= yield %>
+    <div class="container">
+      <%= render "shared/flash" %>
+      <div class="side-padded">
+        <%= yield %>
+      </div>
+    </div>
   </div>
+  <%= render "refills/footer" %>
 </body>
 </html>

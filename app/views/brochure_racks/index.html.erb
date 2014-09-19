@@ -1,11 +1,18 @@
-<h1 class=brochure-rack-message>Brochure Racks</h1>
-<%= link_to "Add Rack", new_brochure_rack_path %>
-<div>
-
-
-<% @brochure_racks.each do |brochure_rack| %>
-  <div class="brochure_racks">
-    <%= link_to brochure_rack.name, brochure_rack %>
-  </div>
-<% end %>
+<div class="page-header">
+  <h1>Racks</h1>
 </div>
+<div class="action-panel">
+  <%= link_to "Add Rack", new_brochure_rack_path %>
+</div>
+
+<table class="wide-table table-borders">
+  <% @brochure_racks.each do |brochure_rack| %>
+    <tr>
+      <td>
+        <div class="brochure_racks">
+          <%= link_to brochure_rack.name, brochure_rack %>
+        </div>
+      </td>
+    </tr>
+  <% end %>
+</table>

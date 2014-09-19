@@ -50,5 +50,4 @@ class TakeawaysController < ApplicationController
   def takeaway_params
     params.require(:takeaway).permit(:name, :client_id)
   end
-
 end

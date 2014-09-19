@@ -1,7 +1,14 @@
 <h1 class="welcome-message">Fast Signs</h1>
 
-<p><%= link_to "Clients", clients_path %>
-
-<p><%= link_to "Brochure Racks", brochure_racks_path %>
-
-<p><%= link_to "Placements", new_placement_path %>
+<div class="grid-items">
+  <a href="<%= clients_path %>" class="grid-item">
+    <img src="https://raw.githubusercontent.com/thoughtbot/refills/master/source/images/placeholder_logo_1.png" alt="">
+    <h1>Clients</h1>
+    <p>Manage Client List</p>
+  </a>
+  <a href="<%= brochure_racks_path %>" class="grid-item grid-item-big grid-item-image">
+    <img src="https://raw.githubusercontent.com/thoughtbot/refills/master/source/images/placeholder_logo_2.png" alt="">
+    <h1>Racks</h1>
+    <p>Manage Racks</p>
+  </a>
+</div>

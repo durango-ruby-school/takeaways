@@ -1,11 +1,15 @@
-<h1><%= link_to @placement.brochure_rack.name, @placement.brochure_rack %></h1>
-<h2><%= link_to @placement.takeaway.name, @placement.takeaway %></h2>
+<%= link_to "Back to Racks", brochure_racks_path %>
 
-<%= link_to "Back to Brochure Racks", brochure_racks_path %>
-<%= link_to "Back to Takeaway", takeaways_path %>
-<%= link_to "Add Stocking", new_placement_stocking_path(@placement) %>
+<div class="page-header">
+  <h1><%= link_to @placement.brochure_rack.name, @placement.brochure_rack %></h1>
+  <h2><%= link_to @placement.takeaway.decorate.name, @placement.takeaway %></h2>
+</div>
 
-<table>
+<div class="action-panel">
+  <%= link_to "Add Stocking", new_placement_stocking_path(@placement) %>
+</div>
+
+<table class="wide-table table-borders">
   <tr>
     <th>Date</th>
     <th>Quantity</th>
@@ -15,9 +19,15 @@
     <%= content_tag_for(:tr, stocking) do %>
       <td><%= stocking.stocked_on %></td>
       <td><%= stocking.quantity %></td>
-      <td><%= link_to "Edit", edit_stocking_path( stocking) %> |
-      <%= link_to "Delete", stocking_path(stocking),
-       method: :delete, data:{confirm: "Are you sure?"}%></td>
+      <td>
+        <%= link_to edit_stocking_path(stocking), id: "edit_stocking" do %>
+          <i class="fa fa-pencil"></i>
+        <% end %>
+        <%= link_to stocking_path(stocking), id: "delete_stocking", method: :delete, 
+          data:{confirm: "Are you sure?"} do %>
+          <i class="fa fa-trash"></i>
+        <% end %>
+      </td>
     <% end %>
   <% end %>
 </table>

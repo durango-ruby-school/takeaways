@@ -1,14 +1,29 @@
-<h1> <%= @client.name %></h1>
+<%= link_to "Back to Clients", clients_path %>
+<div class="page-header">
+  <h1><%= @client.name %></h1>
+  <%= link_to edit_client_path(@client), id: "edit_client" do %>
+    <i class="fa fa-pencil"></i>
+  <% end %>
+  <%= link_to @client, id: "delete_client", method: :delete, data:{confirm: "Are you sure?"} do %>
+    <i class="fa fa-trash"></i>
+  <% end %>
+</div>
 
-<%= link_to "Edit", edit_client_path(@client) %>
+<div class="action-panel">
+  <%= link_to "Add Takeaway", new_takeaway_path(client_id: @client.id) %>
+</div>
 
-<%= link_to "Delete", @client, method: :delete, data:{confirm: "Are you sure?"} %>
-
-<%= link_to "Add Takeaway", new_takeaway_path(client_id: @client.id) %>
-
-<% @takeaways.each do |takeaway| %>
-  <div class="takeaways">
-    <%= link_to takeaway.name, takeaway %>
-  </div>
-
-<% end %>
+<table class="table-borders wide-table">
+  <tr>
+    <th>Takeaways</th>
+  </tr>
+  <% @takeaways.each do |takeaway| %>
+    <tr>
+      <td>
+    <div class="takeaways">
+      <%= link_to takeaway.name, takeaway %>
+    </div>
+      </td>
+    </tr>
+  <% end %>
+</table>

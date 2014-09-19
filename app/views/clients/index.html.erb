@@ -1,10 +1,17 @@
-<h1>Clients</h1>
-
-<%= link_to "New Client", new_client_path =%>
-
-<% @clients.each do |client| %>
-  <div class="clients">
-    <%= link_to client.name, client %>
-  </div>
-
-<% end %>
+<div class="page-header">
+  <h1>Clients</h1>
+</div>
+<div class="action-panel">
+  <%= link_to "New Client", new_client_path %>
+</div>
+<table class="table-borders wide-table">
+  <% @clients.each do |client| %>
+    <tr>
+      <td>
+        <div class="clients">
+          <%= link_to client.name, client %>
+        </div>
+      </td>
+    </tr>
+  <% end %>
+</table>
