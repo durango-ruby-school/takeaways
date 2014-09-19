@@ -19,9 +19,15 @@
     <%= content_tag_for(:tr, stocking) do %>
       <td><%= stocking.stocked_on %></td>
       <td><%= stocking.quantity %></td>
-      <td><%= link_to "Edit", edit_stocking_path( stocking) %> |
-      <%= link_to "Delete", stocking_path(stocking),
-       method: :delete, data:{confirm: "Are you sure?"}%></td>
+      <td>
+        <%= link_to edit_stocking_path(stocking), id: "edit_stocking" do %>
+          <i class="fa fa-pencil"></i>
+        <% end %>
+        <%= link_to stocking_path(stocking), id: "delete_stocking", method: :delete, 
+          data:{confirm: "Are you sure?"} do %>
+          <i class="fa fa-trash"></i>
+        <% end %>
+      </td>
     <% end %>
   <% end %>
 </table>

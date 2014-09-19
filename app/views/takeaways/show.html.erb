@@ -1,6 +1,10 @@
 <div class="page-header">
   <h1><%= @takeaway.name %></h1>
-  <%= link_to "Edit", edit_takeaway_path(@takeaway) %> | 
-  <%= link_to "Delete", @takeaway, method: :delete, data:{confirm: "Are you sure?"} %>
+  <%= link_to edit_takeaway_path(@takeaway), id: "edit_takeaway" do %>
+    <i class="fa fa-pencil"></i>
+  <% end %>
+  <%= link_to @takeaway, id: "delete_takeaway", method: :delete, data:{confirm: "Are you sure?"} do %>
+    <i class="fa fa-trash"></i>
+  <% end %>
 </div>
 <%= link_to "Assign Takeaway", new_placement_path(takeaway_id: @takeaway) %>

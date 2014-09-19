@@ -5,8 +5,12 @@
 <%= @brochure_rack.number_of_rows %> rows |
 <%= @brochure_rack.number_of_columns %> columns
 <br />
-<%= link_to "Edit", edit_brochure_rack_path %> | 
-<%= link_to "Delete", @brochure_rack, method: :delete, data:{confirm: "Are you sure?"} %>
+<%= link_to edit_brochure_rack_path, id: "edit_rack" do %>
+  <i class="fa fa-pencil"></i>
+<% end %>
+<%= link_to @brochure_rack, id: "delete_rack", method: :delete, data:{confirm: "Are you sure?"} do %>
+  <i class="fa fa-trash"></i>
+<% end %>
 </div>
 <div class="action-panel">
   <%= link_to "Assign Takeaway", new_placement_path(brochure_rack_id: @brochure_rack) %>

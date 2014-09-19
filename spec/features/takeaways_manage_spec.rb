@@ -25,13 +25,13 @@ feature 'manage takeaways' do
     user_sees_flash_message "Successfully Updated"
     expect(page).to have_content "Kids Ride Free"
 
-    click_link "Delete"
+    click_link "delete_takeaway"
     expect(page).to have_content "Successfully Deleted"
     expect(page).to_not have_content "Railroad"
   end
 
   def update_a_takeaway takeaway_name
-    click_link "Edit"
+    click_link "edit_takeaway"
     fill_in "Name", with: takeaway_name
     select 'Railroad', from: 'Client'
     click_button "Update Takeaway"
