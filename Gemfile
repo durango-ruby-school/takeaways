@@ -25,6 +25,7 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 
 gem 'simple_form'
 gem 'clearance'
+gem 'reform'
 
 # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
 gem 'spring',        group: :development
@@ -45,7 +46,7 @@ end
 
 group :test do
   gem 'capybara', '~> 2.2.1'
-  gem 'shoulda-matchers', '~> 2.6.0'
+  gem 'shoulda-matchers', '~> 2.6.0', require: false
   gem 'launchy'
   gem 'database_cleaner'
 end
