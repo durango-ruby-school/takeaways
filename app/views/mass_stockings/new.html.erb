@@ -13,7 +13,7 @@
             <%= stocking_form.object.takeaway_name %>
           </td>
           <td>
-            <%= stocking_form.input :quantity, label: false %>
+            <%= stocking_form.input :quantity, label: false, input_html: {data: {field: "quantity"}} %>
             <%= stocking_form.input :placement_id, as: :hidden %>
           </td>
         <% end %>
