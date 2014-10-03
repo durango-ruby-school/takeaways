@@ -9,6 +9,10 @@ body{
   font-size: 60px;
 }
 
+.nav {
+  width: 100%;
+}
+
 .main{
   background-color: white;
   padding-bottom: 1em;
@@ -39,6 +43,10 @@ body{
   color: white;
   line-height: 40px;
   display: inline;
+}
+
+.nester {
+  float: right;
 }
 
 .action-panel {
