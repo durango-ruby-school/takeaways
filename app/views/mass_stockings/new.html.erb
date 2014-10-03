@@ -1,13 +1,25 @@
 <%= simple_form_for [@brochure_rack, @mass_stocking] do |f| %>
   <%= f.input :stocked_on %>
-  <%= f.fields_for "stockings", @mass_stocking.stockings do |stocking_form| %>
-    <%= div_for stocking_form.object.placement do %>
-      <%= stocking_form.object.takeaway_name %>
-      <%= stocking_form.input :quantity %>
-      <%= stocking_form.input :placement_id, as: :hidden %>
 
+  <table class="wide-table">
+    <tr>
+      <th></th>
+      <th>Quantity</th>
+    </tr>
+    <%= f.fields_for "stockings", @mass_stocking.stockings do |stocking_form| %>
+      <tr>
+        <%= div_for stocking_form.object.placement do %>
+          <td>
+            <%= stocking_form.object.takeaway_name %>
+          </td>
+          <td>
+            <%= stocking_form.input :quantity, label: false %>
+            <%= stocking_form.input :placement_id, as: :hidden %>
+          </td>
+        <% end %>
+      </tr>
     <% end %>
-  <% end %>
-
+  </table>
+  
   <%= f.submit 'Save' %>
 <% end %>

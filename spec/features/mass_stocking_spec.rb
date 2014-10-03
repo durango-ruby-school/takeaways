@@ -14,11 +14,11 @@ feature "Mass Stocking" do
     click_link "Stock Rack"
 
     within object_selector(placement_1) do
-      fill_in "Quantity", with: 5
+      fill_in "mass_stocking_stockings_attributes_0_quantity", with: 5
     end
 
     within object_selector(placement_2) do
-      fill_in "Quantity", with: 10
+      fill_in "mass_stocking_stockings_attributes_1_quantity", with: 10
     end
 
     click_button "Save"

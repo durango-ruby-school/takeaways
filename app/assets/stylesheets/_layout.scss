@@ -63,6 +63,11 @@ body{
   font-family: Trebuchet MS, Arial, Sans;
 }
 
+input[type=submit] {
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .contact_form label {
     width:150px;
     margin-top: 3px;
