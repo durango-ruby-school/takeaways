@@ -7,3 +7,11 @@ deployment:
       - git push git@heroku.com:takeaways.git $CIRCLE_SHA1:master
       - heroku run rake db:migrate --app takeaways
       - heroku restart --app takeaways
+  staging:
+    branch: staging
+    commands:
+      # Staging deploy
+      - '[[ ! -s "$(git rev-parse --git-dir)/shallow" ]] || git fetch --unshallow'
+      - git push git@heroku.com:takeaways.git $CIRCLE_SHA1:master
+      - heroku run rake db:migrate --app takeaways-staging
+      - heroku restart --app takeaways-staging
