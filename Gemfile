@@ -56,6 +56,9 @@ gem 'bourbon'
 gem 'refills'
 
 gem 'unicorn'
+
+gem 'honeybadger'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
