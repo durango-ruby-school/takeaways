@@ -7,6 +7,7 @@
 
 <div class="action-panel">
   <%= link_to "Add Stocking", new_placement_stocking_path(@placement) %>
+  <%= button_to "Filter", filter_placement_path(@placement) %>
 </div>
 
 <table class="wide-table table-borders">
@@ -15,7 +16,7 @@
     <th>Quantity</th>
     <th></th>
   </tr>
-  <% @placement.stockings.each do |stocking| %>
+  <% @stockings.each do |stocking| %>
     <%= content_tag_for(:tr, stocking) do %>
       <td><%= stocking.stocked_on %></td>
       <td><%= stocking.quantity %></td>
