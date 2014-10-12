@@ -9,9 +9,11 @@
   <% @brochure_racks.each do |brochure_rack| %>
     <tr>
       <td>
-        <div class="brochure_racks">
-          <%= link_to brochure_rack.name, brochure_rack %>
-        </div>
+        <%= link_to brochure_rack do %>
+          <div class="brochure_racks">
+            <%= brochure_rack.name %>
+          </div>
+        <% end %>
       </td>
     </tr>
   <% end %>
