@@ -24,7 +24,13 @@
   </tr>
   <% @brochure_rack.placements.each do |placement| %>
     <%= content_tag_for(:tr, placement)  do %>
-      <td><%= link_to placement.takeaway.decorate.name, placement %></td>
+      <td>
+        <%= link_to placement do %>
+          <div>
+            <%= placement.takeaway.decorate.name %>
+          </div>
+        <% end %>
+      </td>
     <% end %>
   <% end %>
 </table>

@@ -8,9 +8,11 @@
   <% @clients.each do |client| %>
     <tr>
       <td>
-        <div class="clients">
-          <%= link_to client.name, client %>
-        </div>
+        <%= link_to client do %>
+          <div class="clients">
+            <%= client.name %>
+          </div>
+        <% end %>
       </td>
     </tr>
   <% end %>
