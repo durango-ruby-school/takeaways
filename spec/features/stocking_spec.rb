@@ -46,19 +46,4 @@ feature 'manage racks' do
     click_link "delete_stocking"
     expect(page).to have_content "Successfully Deleted"
   end
-
-  scenario "Filter stockings" do
-    placement=create :placement
-    stocking_today=create :stocking, placement: placement, stocked_on: Date.today
-    stocking_old=create :stocking, placement: placement, stocked_on: 2.weeks.ago
-
-    visit placement_path(placement)
-    user_sees_object stocking_today
-    user_sees_object stocking_old
-
-    select 1.week.ago, from: 'Start Date'
-    click_button "Filter"
-    user_sees_object stocking_today
-    user_does_not_see_object stocking_old
-  end
 end

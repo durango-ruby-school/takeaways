@@ -14,18 +14,7 @@ class PlacementsController < ApplicationController
   end
 
   def show
-    @start_date = 1.week.ago
-    @end_date = Date.today
-
     @placement = Placement.find params[:id]
-    @stockings = @placement.stockings.where(stocked_on: @start_date..@end_date)
-  end
-
-  def filter
-    @start_date = 2.weeks.ago
-    @end_date = Date.today
-    @placement = Placement.find params[:id]
-    @stockings = @placement.stockings.where(stocked_on: @start_date..@end_date)
   end
 
   def placement_params
