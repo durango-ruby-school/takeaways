@@ -16,4 +16,9 @@ Rails.application.routes.draw do
 
   resources :stockings, only: [:edit, :update, :destroy]
 
+  namespace :api, defaults: {format: :json} do
+    namespace :v1 do
+      resources :brochure_racks, only: [:index]
+    end
+  end
 end
