@@ -10,7 +10,7 @@
       <tr>
         <%= div_for stocking_form.object.placement do %>
           <td>
-            <%= stocking_form.object.takeaway.decorate.name %>
+            <%= stocking_form.object.takeaway_name %>
           </td>
           <td>
             <%= stocking_form.input :quantity, label: false, input_html: {data: {field: "quantity"}} %>
