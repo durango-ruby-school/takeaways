@@ -5,8 +5,6 @@ describe BrochureRack do
 
   describe "validations" do
     it{should validate_presence_of(:name)}
-    it{should validate_presence_of(:number_of_rows)}
-    it{should validate_presence_of(:number_of_columns)}
 
     describe "uniqueness" do
       before { create :brochure_rack}

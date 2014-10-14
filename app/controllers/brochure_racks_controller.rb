@@ -46,6 +46,6 @@ class BrochureRacksController < ApplicationController
   end
 
   def brochure_rack_params
-    params.require(:brochure_rack).permit(:name, :number_of_rows, :number_of_columns)
+    params.require(:brochure_rack).permit(:name)
   end
 end

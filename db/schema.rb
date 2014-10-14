@@ -11,15 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140914211854) do
+ActiveRecord::Schema.define(version: 20141013154333) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "brochure_racks", force: true do |t|
     t.string   "name"
-    t.integer  "number_of_rows"
-    t.integer  "number_of_columns"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -23,16 +23,12 @@ feature 'manage racks' do
   def create_a_rack rack_name
     click_link "Add Rack"
     fill_in "Name", with: rack_name
-    fill_in "Number of Rows", with: "10"
-    fill_in "Number of Columns", with: "4"
     click_button "Create Rack"
   end
 
   def update_a_rack rack_name
     click_link "edit_rack"
     fill_in "Name", with: rack_name
-    fill_in "Number of Rows", with: "8"
-    fill_in "Number of Columns", with: "6"
     click_button "Update Rack"
   end
 
