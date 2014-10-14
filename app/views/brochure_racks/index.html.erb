@@ -9,9 +9,7 @@
   <% @brochure_racks.each do |brochure_rack| %>
     <tr>
       <td>
-        <%= link_to brochure_rack do %>
-            <%= brochure_rack.name %>
-        <% end %>
+        <%= link_to brochure_rack.name, brochure_rack %>
       </td>
     </tr>
   <% end %>

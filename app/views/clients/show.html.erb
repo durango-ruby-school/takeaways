@@ -20,9 +20,7 @@
   <% @takeaways.each do |takeaway| %>
     <tr>
       <td>
-        <%= link_to takeaway do %>
-          <%= takeaway.name %>
-        <% end %>
+       <%= link_to takeaway.name, takeaway  %>
       </td>
     </tr>
   <% end %>
