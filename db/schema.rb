@@ -37,8 +37,6 @@ ActiveRecord::Schema.define(version: 20141013154333) do
     t.integer  "takeaway_id",      null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "x_position"
-    t.integer  "y_position"
   end
 
   add_index "placements", ["brochure_rack_id"], name: "index_placements_on_brochure_rack_id", using: :btree
