@@ -26,9 +26,7 @@
     <%= content_tag_for(:tr, placement)  do %>
       <td>
         <%= link_to placement do %>
-          <div>
-            <%= placement.takeaway.decorate.name %>
-          </div>
+          <%= placement.takeaway.decorate.name %>
         <% end %>
       </td>
     <% end %>
