@@ -19,11 +19,7 @@
   <% @takeaway.placements.each do |placement| %>
     <%= content_tag_for(:tr, placement) do %>
       <td>
-        <%= link_to placement do %>
-          <div>
-            <%= placement.brochure_rack.name %>
-          </div>
-        <% end %>
+        <%= link_to placement.brochure_rack.name, placement %>
       </td>
     <% end %>
   <% end %>

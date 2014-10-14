@@ -57,6 +57,10 @@ body{
   width: 100%;
 }
 
+.wide-table a {
+  display: block;
+}
+
 .side-padded {
   @include pad(0 default 0 default);
 }
