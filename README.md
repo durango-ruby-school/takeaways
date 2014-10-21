@@ -26,6 +26,8 @@ The application depends on the following environment variables. These can be set
 ```
 SECRET_KEY_BASE= <Random string to used to generate session keys. See config/secrets.yml>
 HONEYBADGER_API_KEY = Honeybadger api key
+APP_DOMAIN=<domain of the application ie(lvh.me or bike2020.com)>
+APP_PORT=<port that the application is running on, optional>
 ```
 
 ## Contributing

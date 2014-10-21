@@ -26,5 +26,15 @@ module Takeaways
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
+
+    # Setting up default application hostname
+    config.app_domain = ENV.fetch("APP_DOMAIN", "lvh.me")
+    config.app_port = ENV["APP_PORT"]
+
+    # ActionMailer default url options
+    config.action_mailer.default_url_options = {
+      host: config.app_domain,
+      port: config.app_port
+    }
   end
 end
