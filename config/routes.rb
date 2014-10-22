@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
 
+  use_doorkeeper do
+    #Just wanted the tokens controller
+    skip_controllers :applications, :authorized_applications, :authorizations
+  end
+
   root 'pages#index'
 
   resources :clients, only: [:index, :new, :create, :show, :edit, :update, :destroy]
