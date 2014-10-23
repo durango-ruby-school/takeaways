@@ -1,10 +1,10 @@
 require 'spec_helper'
 
 describe "oauth authentication" do
-  it "returns a token with the correct username and password" do
+  it "returns a token with the correct email and password" do
     user = create :user
 
-    post "/oauth/token", grant_type: "password", username: user.email, password: user.password
+    post "/oauth/token", grant_type: "password", email: user.email, password: user.password
 
     expect(response.status).to eq(200)
 
@@ -12,10 +12,10 @@ describe "oauth authentication" do
     expect(response_json).to have_key("access_token")
   end
 
-  it "returns a 401 status with the incorrect username and password" do
+  it "returns a 401 status with the incorrect email and password" do
     user = create :user
 
-    post "/oauth/token", grant_type: "password", username: user.email, password: "invalid"
+    post "/oauth/token", grant_type: "password", email: user.email, password: "invalid"
 
     expect(response.status).to eq(401)
 
