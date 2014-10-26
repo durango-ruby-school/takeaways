@@ -10,6 +10,7 @@ describe Stocking do
     it{should validate_presence_of(:placement)}
     it{should validate_presence_of(:stocked_on)}
     it{should validate_presence_of(:quantity)}
+    it{should validate_numericality_of(:quantity).only_integer}
   end
 
   describe "delegations" do

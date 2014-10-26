@@ -84,6 +84,29 @@ describe MassStocking do
         expect(first_stocking.quantity).to eq(5)
         expect(first_stocking.stocked_on).to eq(Date.parse("2014-08-24"))
       end
+
+      it "won't create a stocking if quantity is left blank" do
+        brochure_rack = create(:brochure_rack)
+        placement_1 = create :placement, brochure_rack: brochure_rack
+
+        mass_stocking = described_class.new(brochure_rack)
+
+        expect{
+          mass_stocking.save(
+            stocked_on: "2014-10-10",
+            stockings_attributes: {
+              "1" => {
+                quantity: "",
+                placement_id: placement_1.id
+              },
+              "2" => {
+                quantity: "5",
+                placement_id: placement_1.id
+              }
+            }
+          )
+        }.to change{Stocking.count}.by(1)
+        end
     end
 
     context "when invalid" do

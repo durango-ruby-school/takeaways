@@ -38,10 +38,17 @@ class MassStocking
     @stockings = []
 
     attrs_array.each do |attrs|
-      placement = @rack.placements.find(attrs.fetch(:placement_id))
-      @stockings << placement.stockings.build(quantity: attrs[:quantity],
-        stocked_on: stocked_on)
+      if attrs[:quantity].present?
+        add_to_stockings(attrs)
+      end
     end
+  end
 
+  private
+
+  def add_to_stockings(attrs)
+    placement = @rack.placements.find(attrs.fetch(:placement_id))
+    @stockings << placement.stockings.build(quantity: attrs[:quantity],
+      stocked_on: stocked_on)
   end
 end
