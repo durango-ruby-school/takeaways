@@ -46,4 +46,18 @@ feature 'manage racks' do
     click_link "delete_stocking"
     expect(page).to have_content "Successfully Deleted"
   end
+
+  scenario "Filter Stockings" do
+    placement=create :placement
+    stocking_this_month = create :stocking, placement: placement, stocked_on: Date.today
+    stocking_last_month = create :stocking, placement: placement, stocked_on: 1.month.ago
+
+    visit placement_path(placement)
+    user_sees_object stocking_this_month
+    user_does_not_see_object stocking_last_month
+
+    select 'Last Month', from: :time_frame
+    user_sees_object stocking_last_month
+    user_does_not_see_object stocking_this_month
+  end
 end
