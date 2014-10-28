@@ -47,7 +47,7 @@ feature 'manage racks' do
     expect(page).to have_content "Successfully Deleted"
   end
 
-  scenario "Filter Stockings" do
+  scenario "Filter Stockings", js: true do
     placement=create :placement
     stocking_this_month = create :stocking, placement: placement, stocked_on: Date.today
     stocking_last_month = create :stocking, placement: placement, stocked_on: 1.month.ago

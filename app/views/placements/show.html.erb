@@ -8,7 +8,7 @@
 <div class="action-panel">
   <%= link_to "Add Stocking", new_placement_stocking_path(@placement) %> |
 
-  <%= form_tag(@placement, method: "get") do %>
+  <%= form_tag(@placement, method: "get", id: 'time_frame_filter') do %>
     Show
     <%= select_tag :time_frame,
           options_from_collection_for_select(
@@ -16,12 +16,11 @@
             :first,
             :last,
             @time_frame
-          ),
-          onchange: "this.form.submit()" %>
+          ) %>
   <% end %>
 </div>
 
-<table class="wide-table tables-borders">
+<table class="wide-table table-borders">
   <tr>
     <th>Date</th>
     <th>Quantity</th>

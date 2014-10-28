@@ -51,6 +51,7 @@ group :test do
   gem 'shoulda-matchers', '~> 2.6.0', require: false
   gem 'launchy'
   gem 'database_cleaner'
+  gem 'capybara-webkit'
 end
 
 gem 'neat'
