@@ -6,7 +6,18 @@
 </div>
 
 <div class="action-panel">
-  <%= link_to "Add Stocking", new_placement_stocking_path(@placement) %>
+  <%= link_to "Add Stocking", new_placement_stocking_path(@placement) %> |
+
+  <%= form_tag(@placement, method: "get", id: 'time_frame_filter') do %>
+    Show
+    <%= select_tag :time_frame,
+          options_from_collection_for_select(
+            @time_frame_list,
+            :first,
+            :last,
+            @time_frame
+          ) %>
+  <% end %>
 </div>
 
 <table class="wide-table table-borders">
@@ -15,7 +26,7 @@
     <th>Quantity</th>
     <th></th>
   </tr>
-  <% @placement.stockings.each do |stocking| %>
+  <% @stockings.each do |stocking| %>
     <%= content_tag_for(:tr, stocking) do %>
       <td><%= stocking.stocked_on %></td>
       <td><%= stocking.quantity %></td>
@@ -23,7 +34,7 @@
         <%= link_to edit_stocking_path(stocking), id: "edit_stocking" do %>
           <i class="fa fa-pencil"></i>
         <% end %>
-        <%= link_to stocking_path(stocking), id: "delete_stocking", method: :delete, 
+        <%= link_to stocking_path(stocking), id: "delete_stocking", method: :delete,
           data:{confirm: "Are you sure?"} do %>
           <i class="fa fa-trash"></i>
         <% end %>

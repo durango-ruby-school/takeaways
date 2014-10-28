@@ -53,6 +53,10 @@ body{
   margin-bottom: 1em;
 }
 
+.action-panel select, form {
+  display: inline;
+}
+
 .wide-table {
   width: 100%;
 }

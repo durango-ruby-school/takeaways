@@ -7,8 +7,6 @@ module SignInHelpers
   def sign_in
     sign_in_as_role(:user)
   end
-
-
 end
 
 RSpec.configure do |config|
