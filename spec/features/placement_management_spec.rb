@@ -54,4 +54,44 @@ feature 'Placement Management' do
     click_link "Back to Racks"
     expect(page).to have_content "Racks"
   end
+
+  scenario "Mark placement inactve" do
+    takeaway = create :takeaway
+    rack = create :brochure_rack
+    placement = create :placement, takeaway: takeaway, brochure_rack: rack
+    stocking = create :stocking, placement: placement
+
+    visit takeaway_path(takeaway)
+
+    user_sees_object placement
+    expect do
+      click_button "Remove from Rack"
+    end.to_not change{Placement.count}
+    user_does_not_see_object placement
+
+    #stocking.should exist_in_database
+    visit brochure_rack_path(rack)
+    user_sees_object stocking
+
+    visit takeaway_path(takeaway)
+    click_link "Assign Takeaway"
+
+    select rack.name, from: 'Brochure rack'
+    click_button "Assign"
+
+    visit takeaway_path(takeaway)
+    user_sees_object placement
+  end
+
+  scenario "Delete placement with no stockings" do
+    takeaway= create :takeaway
+    placement = create :placement, takeaway: takeaway
+
+    visit takeaway_path(takeaway)
+
+    expect do
+      click_button "Remove from Rack"
+    end.to change{Placement.count}.by 1
+    user_does_not_see_object placement
+  end
 end

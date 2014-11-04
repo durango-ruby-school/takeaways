@@ -5,6 +5,8 @@ class Placement < ActiveRecord::Base
   has_many :stockings, :dependent => :destroy
 
   validates_presence_of(:brochure_rack)
-  validates_presence_of(:takeaway)
+  validates_presence_of(:takeaway
   validates_uniqueness_of(:takeaway_id, scope: :brochure_rack_id)
+
+  scope :active, -> { where(active: true) }
 end

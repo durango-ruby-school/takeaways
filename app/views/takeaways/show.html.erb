@@ -16,10 +16,14 @@
   <tr>
     <th>Racks</th>
   </tr>
-  <% @takeaway.placements.each do |placement| %>
+  <% @takeaway.placements.active.each do |placement| %>
     <%= content_tag_for(:tr, placement) do %>
       <td>
         <%= link_to placement.brochure_rack.name, placement %>
+        <%= button_to "Remove from Rack", placement,
+          id: 'remove_from_rack',
+          method: :delete,
+          data:{confirm: "Are you sure?"} %>
       </td>
     <% end %>
   <% end %>

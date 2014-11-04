@@ -38,7 +38,7 @@ class TakeawaysController < ApplicationController
     def destroy
       @takeaway = Takeaway.find params[:id]
       if @takeaway.destroy
-        flash[:notice] = "Brochure Successfully Deleted"
+        flash[:notice] = "Takeaway Successfully Deleted"
         redirect_to takeaways_path
     else
         render @takeaway
