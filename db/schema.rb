@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141022194355) do
+ActiveRecord::Schema.define(version: 20141104013617) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -78,6 +78,7 @@ ActiveRecord::Schema.define(version: 20141022194355) do
     t.datetime "updated_at"
   end
 
+  add_index "placements", ["brochure_rack_id", "takeaway_id"], name: "index_placements_on_brochure_rack_id_and_takeaway_id", unique: true, using: :btree
   add_index "placements", ["brochure_rack_id"], name: "index_placements_on_brochure_rack_id", using: :btree
   add_index "placements", ["takeaway_id"], name: "index_placements_on_takeaway_id", using: :btree
 

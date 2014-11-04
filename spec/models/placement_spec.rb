@@ -10,5 +10,11 @@ describe Placement do
   describe "validations" do
     it{should validate_presence_of(:brochure_rack)}
     it{should validate_presence_of(:takeaway)}
+
+    describe "uniqueness" do
+      before { create :placement }
+
+      it{should validate_uniqueness_of(:takeaway_id).scoped_to(:brochure_rack_id)}
+    end
   end
 end
