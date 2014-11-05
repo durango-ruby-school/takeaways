@@ -39,22 +39,36 @@ class MassStocking
   private
 
   def generate_stockings(attrs_array)
-    attrs_array.map { |attrs|
-      if attrs[:quantity].present?
-        build_stocking(attrs)
-      end
-    }.compact
-  end
-
-  def build_stocking(attrs)
-    placement = @rack.placements.find(attrs.fetch(:placement_id))
-    placement.stockings.build(quantity: attrs[:quantity],
-      stocked_on: stocked_on)
+    StockingGenerator.new(@rack, stocked_on).generate_stockings(attrs_array)
   end
 
   def save_stockings
     @stockings.each do |stocking|
       stocking.save!
+    end
+  end
+
+  class StockingGenerator
+
+    def initialize(rack, date)
+      @rack = rack
+      @stocked_on = date
+    end
+
+    def generate_stockings(attrs_array)
+      attrs_array.map { |attrs|
+        if attrs[:quantity].present?
+          build_stocking(attrs)
+        end
+      }.compact
+    end
+
+    private
+
+    def build_stocking(attrs)
+      placement = @rack.placements.find(attrs.fetch(:placement_id))
+      placement.stockings.build(quantity: attrs[:quantity],
+        stocked_on: @stocked_on)
     end
   end
 end
