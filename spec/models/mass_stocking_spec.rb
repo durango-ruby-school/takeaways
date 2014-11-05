@@ -106,7 +106,7 @@ describe MassStocking do
             }
           )
         }.to change{Stocking.count}.by(1)
-        end
+      end
     end
 
     context "when invalid" do
