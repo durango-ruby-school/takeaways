@@ -139,4 +139,55 @@ describe MassStocking do
       end
     end
   end
+
+  describe "#stockings_attributes=" do
+    it "builds a new stocking for every hash that comes in" do
+      brochure_rack = create(:brochure_rack)
+      placement_1 = create :placement, brochure_rack: brochure_rack
+      mass_stocking = described_class.new(brochure_rack)
+
+      mass_stocking.stockings_attributes={
+        "1" => {
+          quantity: "1",
+          placement_id: placement_1.id
+        },
+        "2" => {
+          quantity: "5",
+          placement_id: placement_1.id
+        }
+      }
+
+      stocking_1= mass_stocking.stockings.first
+      expect(stocking_1.quantity).to eq 1
+      expect(stocking_1.placement_id).to eq placement_1.id
+
+      stocking_2= mass_stocking.stockings.last
+      expect(stocking_2.quantity).to eq 5
+      expect(stocking_2.placement_id).to eq placement_1.id
+    end
+
+    it "doesn't build a stocking if quantity is blank" do
+      brochure_rack = create(:brochure_rack)
+      placement_1 = create :placement, brochure_rack: brochure_rack
+      mass_stocking = described_class.new(brochure_rack)
+
+      mass_stocking.stockings_attributes={
+        "1" => {
+          quantity: "",
+          placement_id: placement_1.id
+        },
+        "2" => {
+          quantity: "5",
+          placement_id: placement_1.id
+        }
+      }
+
+      expect(mass_stocking.stockings.length).to eq 1
+
+      stocking= mass_stocking.stockings.first
+      expect(stocking.quantity).to eq 5
+      expect(stocking.placement_id).to eq placement_1.id
+
+    end
+  end
 end
