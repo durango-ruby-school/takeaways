@@ -33,19 +33,17 @@ class MassStocking
 
     attrs_array = incoming_attrs.values
 
-    @stockings = []
-
-    generate_stockings(attrs_array)
+    @stockings = generate_stockings(attrs_array)
   end
 
   private
 
   def generate_stockings(attrs_array)
-    attrs_array.each do |attrs|
+    attrs_array.map { |attrs|
       if attrs[:quantity].present?
-        @stockings << build_stocking(attrs)
+        build_stocking(attrs)
       end
-    end
+    }.compact
   end
 
   def build_stocking(attrs)
