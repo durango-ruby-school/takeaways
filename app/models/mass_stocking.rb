@@ -21,9 +21,7 @@ class MassStocking
     self.stockings_attributes = attributes.fetch(:stockings_attributes, {})
 
     if valid?
-      @stockings.each do |stocking|
-        stocking.save!
-      end
+      generate_stockings
       true
     else
       false
@@ -50,5 +48,11 @@ class MassStocking
     placement = @rack.placements.find(attrs.fetch(:placement_id))
     @stockings << placement.stockings.build(quantity: attrs[:quantity],
       stocked_on: stocked_on)
+  end
+
+  def generate_stockings
+    @stockings.each do |stocking|
+      stocking.save!
+    end
   end
 end
