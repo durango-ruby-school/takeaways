@@ -1,6 +1,7 @@
 class Api::V1::MassStockingsController < ApplicationController
   skip_before_filter :authorize
   doorkeeper_for :all, unless: :signed_in?
+  protect_from_forgery :except => :create
 
   def create
 
