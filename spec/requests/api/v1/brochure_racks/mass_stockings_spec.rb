@@ -23,11 +23,9 @@ describe 'mass_stocking_api' do
         ]
       expect(response.status).to eq (200)
       expect(placement_1.stockings.first.quantity).to eq(7)
-      expect(placement_1.stockings.first.stocked_on).to eq("2014-11-02")
+      expect(placement_1.stockings.first.stocked_on).to eq(Date.parse "2014-11-02")
       expect(placement_2.stockings.first.quantity).to eq(9)
-      expect(placement_2.stockings.first.stocked_on).to eq("2014-11-02")
-
-
+      expect(placement_2.stockings.first.stocked_on).to eq(Date.parse "2014-11-02")
     end
   end
 end
