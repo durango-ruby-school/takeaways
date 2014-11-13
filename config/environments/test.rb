@@ -39,4 +39,7 @@ Rails.application.configure do
 
   # Clearance backdoor for tests
   config.middleware.use Clearance::BackDoor
+
+  # Raises an error on unpermitted attributes assignment
+  config.action_controller.action_on_unpermitted_parameters = :raise  # default is :log
 end

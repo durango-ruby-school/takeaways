@@ -1,4 +1,11 @@
 <%= simple_form_for @client do |f| %>
   <%= f.input :name %>
+  <%= f.input :contact %>
+  <%= f.input :street %>
+  <%= f.input :city %>
+  <%= f.input :state %>
+  <%= f.input :zip %>
+  <%= f.input :phone %>
+  <%= f.input :email %>
   <%= f.submit %>
 <% end %>

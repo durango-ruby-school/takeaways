@@ -5,4 +5,8 @@ class Api::V1::BrochureRacksController < ApplicationController
   def index
     @brochure_racks = BrochureRack.all
   end
+
+  def show
+    @brochure_rack = BrochureRack.find params[:id]
+  end
 end
