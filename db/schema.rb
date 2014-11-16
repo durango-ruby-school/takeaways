@@ -28,6 +28,13 @@ ActiveRecord::Schema.define(version: 20141104021122) do
     t.string   "name",       null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "contact"
+    t.string   "street"
+    t.string   "city"
+    t.string   "state"
+    t.string   "zip"
+    t.string   "phone"
+    t.string   "email"
   end
 
   add_index "clients", ["name"], name: "index_clients_on_name", unique: true, using: :btree
