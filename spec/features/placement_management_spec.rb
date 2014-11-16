@@ -65,12 +65,14 @@ feature 'Placement Management' do
 
     user_sees_object placement
     expect do
-      click_button "Remove from Rack"
+      click_link "Remove from Rack"
     end.to_not change{Placement.count}
     user_does_not_see_object placement
 
-    #stocking.should exist_in_database
     visit brochure_rack_path(rack)
+    user_sees_object placement
+
+    visit placement_path(placement)
     user_sees_object stocking
 
     visit takeaway_path(takeaway)
@@ -90,8 +92,8 @@ feature 'Placement Management' do
     visit takeaway_path(takeaway)
 
     expect do
-      click_button "Remove from Rack"
-    end.to change{Placement.count}.by 1
+      click_link "Remove from Rack"
+    end.to change{Placement.count}.by -1
     user_does_not_see_object placement
   end
 end
