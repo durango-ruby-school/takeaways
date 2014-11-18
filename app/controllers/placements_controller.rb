@@ -5,7 +5,16 @@ class PlacementsController < ApplicationController
   end
 
   def create
-    @placement = Placement.new placement_params
+    @placement = Placement.find_by_brochure_rack_id_and_takeaway_id(
+      placement_params[:brochure_rack_id],
+      placement_params[:takeaway_id])
+
+    if (@placement)
+      @placement.active = true
+    else
+      @placement = Placement.new placement_params
+    end
+
     if @placement.save
       redirect_to placement_path(@placement), notice: "Success"
     else
@@ -34,6 +43,18 @@ class PlacementsController < ApplicationController
     when :last_year
       @stockings = @placement.stockings.last_year
     end
+  end
+
+  def destroy
+    @placement = Placement.find params[:id]
+    if (@placement.stockings.first)
+      @placement.active = false
+      @placement.save
+    else
+      @placement.destroy
+    end
+
+    redirect_to(:back)
   end
 
   def placement_params

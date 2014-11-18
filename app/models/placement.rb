@@ -10,6 +10,8 @@ class Placement < ActiveRecord::Base
   validates_presence_of(:takeaway)
   validates_uniqueness_of(:takeaway_id, scope: :brochure_rack_id)
 
+  scope :active, -> { where(active: true) }
+
   delegate :name, to: :takeaway, prefix:true
   delegate :name, to: :client, prefix:true
 end
