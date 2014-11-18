@@ -41,6 +41,34 @@ feature 'manage takeaways' do
     user_does_not_see_object(unrelated_placement)
   end
 
+  scenario "Retire a takeaway" do
+    client = create :client
+    takeaway = create :takeaway, client: client
+    rack = create :rack
+    placement = create :placement, takeaway: takeaway, rack: rack
+
+    visit client_path(client)
+    click_link "Retire"
+    user_does_not_see_object(takeaway)
+
+    check "Show Retired Takeaways"
+    user_sees_object(takeaway)
+    expect(page).to have_content "Retired"
+
+    visit takeaway_path(takeaway)
+    user_does_not_see_object(placement)
+
+    visit rack_path(rack)
+    user_sees_object(placement)
+    expect(page).to have_content "Removed"
+
+    visit client_path(client)
+    check "Show Retired Takeaways"
+    click_link "Restore"
+    uncheck "Show Retired Takeaways"
+    user_sees_object(takeaway)
+  end
+
   def update_a_takeaway takeaway_name
     click_link "edit_takeaway"
     fill_in "Name", with: takeaway_name
