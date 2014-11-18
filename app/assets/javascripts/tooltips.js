@@ -1,12 +1,10 @@
-$('#information').click(function() {
-  $('#information').tooltip("open");
-});
-
-$(".more_info").click(function () {
+$(document).ready(function() {
+  $(".more_info").click(function () {
     var $title = $(this).find(".title");
     if (!$title.length) {
-        $(this).append('<span class="title">' + $(this).attr("title") + '</span>');
+      $(this).append('<div class="title">' + $(this).attr("title") + '</div>');
     } else {
-        $title.remove();
+      $title.remove();
     }
+  });
 });
