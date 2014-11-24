@@ -44,8 +44,19 @@ class ClientsController < ApplicationController
   end
 
     def show
+      if(params.has_key?(:show_retired_takeaways))
+        @show_retired_takeaways = params[:show_retired_takeaways]
+      else
+        @show_retired_takeaways = false
+      end
+
       @client = Client.find params[:id]
-      @takeaways =@client.takeaways
+
+      if @show_retired_takeaways
+        @takeaways = @client.takeaways
+      else
+        @takeaways = @client.takeaways.active
+      end
     end
 
   private

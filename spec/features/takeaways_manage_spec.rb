@@ -41,31 +41,39 @@ feature 'manage takeaways' do
     user_does_not_see_object(unrelated_placement)
   end
 
-  scenario "Retire a takeaway" do
+  scenario "Retire a takeaway", js: true do
     client = create :client
     takeaway = create :takeaway, client: client
-    rack = create :rack
-    placement = create :placement, takeaway: takeaway, rack: rack
+    rack = create :brochure_rack
+
+    placement_with_stocking = create :placement, takeaway: takeaway, brochure_rack: rack
+    stocking = create :stocking, placement: placement_with_stocking
+
+    empty_rack = create :brochure_rack
+    placement_without_stocking = create :placement, takeaway: takeaway, brochure_rack: empty_rack
+
 
     visit client_path(client)
-    click_link "Retire"
+    expect do
+      click_link "Retire"
+    end.to change{Placement.count}.by -1
     user_does_not_see_object(takeaway)
+    placement_with_stocking.exists_in_database
 
-    check "Show Retired Takeaways"
+    check :show_retired_takeaways
     user_sees_object(takeaway)
     expect(page).to have_content "Retired"
 
     visit takeaway_path(takeaway)
-    user_does_not_see_object(placement)
+    user_does_not_see_object(placement_with_stocking)
 
-    visit rack_path(rack)
-    user_sees_object(placement)
-    expect(page).to have_content "Removed"
+    visit brochure_rack_path(rack)
+    user_does_not_see_object(placement_with_stocking)
 
     visit client_path(client)
-    check "Show Retired Takeaways"
+    check :show_retired_takeaways
     click_link "Restore"
-    uncheck "Show Retired Takeaways"
+    uncheck :show_retired_takeaways
     user_sees_object(takeaway)
   end
 
