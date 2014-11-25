@@ -7,13 +7,13 @@ Rails.application.routes.draw do
 
   root 'pages#index'
 
-  resources :clients, only: [:index, :new, :create, :show, :edit, :update, :destroy]
+  resources :clients
 
-  resources :brochure_racks, only: [:index, :new, :create, :show, :edit, :update, :destroy] do
+  resources :brochure_racks do
     resources :mass_stockings, only: [:new, :create]
   end
 
-  resources :takeaways, only: [:index, :new, :create, :show, :edit, :update, :destroy] do
+  resources :takeaways do
     member do
       get :restore
     end
