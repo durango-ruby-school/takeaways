@@ -65,6 +65,22 @@ body{
   display: block;
 }
 
+.more_info {
+  border-bottom: 1px dotted;
+  position: relative;
+  cursor: pointer;
+}
+
+.more_info .title {
+    position: absolute;
+    top: 20px;
+    background: silver;
+    padding: 4px;
+    left: 0;
+    white-space: pre-wrap;
+    width: 300px;
+}
+
 .side-padded {
   @include pad(0 default 0 default);
 }

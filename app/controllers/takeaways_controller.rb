@@ -35,19 +35,52 @@ class TakeawaysController < ApplicationController
     end
   end
 
-    def destroy
-      @takeaway = Takeaway.find params[:id]
-      if @takeaway.destroy
-        flash[:notice] = "Brochure Successfully Deleted"
-        redirect_to takeaways_path
+  def destroy
+    @takeaway = Takeaway.find params[:id]
+
+    if @takeaway.has_been_stocked
+      retire_takeaway @takeaway
+      flash[:notice] = "Takeaway Successfully Retired"
+      redirect_to client_path(@takeaway.client)
     else
+      if @takeaway.destroy
+        flash[:notice] = "Takeaway Successfully Deleted"
+        redirect_to client_path(@takeaway.client)
+      else
+        flash[:notice] = "Takeaway Deletion Failed"
         render @takeaway
+      end
     end
+  end
+
+  def restore
+    @takeaway = Takeaway.find params[:id]
+
+    @takeaway.active = true
+    @takeaway.save
+
+    redirect_to :back
   end
 
   private
 
   def takeaway_params
     params.require(:takeaway).permit(:name, :client_id)
+  end
+
+  def retire_takeaway takeaway
+    takeaway.transaction do
+      takeaway.active = false
+      takeaway.save
+
+      takeaway.placements.each do |placement|
+        if placement.has_been_stocked
+          placement.active = false
+          placement.save
+        else
+          placement.destroy
+        end
+      end
+    end
   end
 end

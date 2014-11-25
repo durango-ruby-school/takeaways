@@ -6,7 +6,6 @@ feature 'manage takeaways' do
   end
 
   scenario 'CRUD for takeaways' do
-
     create :client, name: 'DMR'
     create :client, name: 'Railroad'
     create :client, name: 'Animas Code Labs'
@@ -21,13 +20,16 @@ feature 'manage takeaways' do
     user_sees_flash_message "Takeaway Successfully Created"
     expect(page).to have_content "Stay and Ski"
 
-    update_a_takeaway "Kids Ride Free"
+    click_link "edit_takeaway"
+    fill_in "Name", with: "Kids Ride Free"
+    select 'Railroad', from: 'Client'
+    click_button "Update Takeaway"
     user_sees_flash_message "Successfully Updated"
     expect(page).to have_content "Kids Ride Free"
 
     click_link "delete_takeaway"
     expect(page).to have_content "Successfully Deleted"
-    expect(page).to_not have_content "Railroad"
+    expect(page).to have_content "Railroad"
   end
 
   scenario "View list of all racks for a takeaway" do
@@ -41,10 +43,43 @@ feature 'manage takeaways' do
     user_does_not_see_object(unrelated_placement)
   end
 
-  def update_a_takeaway takeaway_name
-    click_link "edit_takeaway"
-    fill_in "Name", with: takeaway_name
-    select 'Railroad', from: 'Client'
-    click_button "Update Takeaway"
+  scenario "Retire a takeaway", js: true do
+    client = create :client
+    takeaway = create :takeaway, client: client, name: 'Retiring Takeaway'
+    rack = create :brochure_rack
+
+    placement_with_stocking = create :placement, takeaway: takeaway, brochure_rack: rack
+    stocking = create :stocking, placement: placement_with_stocking
+
+    empty_rack = create :brochure_rack
+    placement_without_stocking = create :placement, takeaway: takeaway, brochure_rack: empty_rack
+
+
+    visit client_path(client)
+    #when using the expect statement below, the destroy method would not be hit
+    #perhaps the javascript does not run inside an expect
+    #expect do
+      click_link "Retire"
+    #end.to change{Placement.count}.by -1
+    user_does_not_see_object(takeaway)
+    placement_with_stocking.should exist_in_database
+    placement_without_stocking.should_not exist_in_database
+
+    check :show_retired_takeaways
+    user_sees_object(takeaway)
+    expect(page).to have_content "Retired"
+
+    visit takeaway_path(takeaway)
+    user_does_not_see_object(placement_with_stocking)
+
+    visit brochure_rack_path(rack)
+    user_sees_object(placement_with_stocking)
+    expect(page).to have_content "Removed"
+
+    visit client_path(client)
+    check :show_retired_takeaways
+    click_link "Restore"
+    uncheck :show_retired_takeaways
+    user_sees_object(takeaway)
   end
 end
