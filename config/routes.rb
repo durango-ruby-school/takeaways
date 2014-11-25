@@ -13,7 +13,11 @@ Rails.application.routes.draw do
     resources :mass_stockings, only: [:new, :create]
   end
 
-  resources :takeaways, only: [:index, :new, :create, :show, :edit, :update, :destroy]
+  resources :takeaways, only: [:index, :new, :create, :show, :edit, :update, :destroy] do
+    member do
+      get :restore
+    end
+  end
 
   resources :placements, only: [:new, :create, :show, :destroy] do
     resources :stockings, only: [:new, :create]

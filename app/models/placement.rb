@@ -14,4 +14,12 @@ class Placement < ActiveRecord::Base
 
   delegate :name, to: :takeaway, prefix:true
   delegate :name, to: :client, prefix:true
+
+  def has_been_stocked
+    if self.stockings.first
+      true
+    else
+      false
+    end
+  end
 end

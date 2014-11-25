@@ -27,7 +27,7 @@
        <%= link_to takeaway.name, takeaway  %>
 
         <% if takeaway.active %>
-          <% if takeaway.placements.first %>
+          <% if takeaway.has_been_stocked %>
             <%= link_to "Retire", takeaway,
               id: 'retire_delete_takeaway',
               method: :delete,
@@ -39,7 +39,11 @@
               data:{confirm: "Are you sure?"} %>
           <% end %>
         <% else %>
-          Retired
+          (Retired)
+          <%= link_to "Restore",
+            restore_takeaway_path(takeaway),
+            id: 'restore_takeaway',
+            method: :get %>
         <% end %>
       </td>
     <% end %>

@@ -10,5 +10,19 @@ class Takeaway < ActiveRecord::Base
   scope :active, -> { where(active: true) }
 
   #inner join eliminates takeaways with no stockings
-  scope :has_been_stocked, joins(:placements).joins(:stockings)
+  scope :have_been_stocked, -> { joins(placements: :stockings) }
+
+  def has_been_stocked
+    first_placement = self.placements.first
+
+    if first_placement
+      if first_placement.stockings.first
+        true
+      else
+        false
+      end
+    else
+      false
+    end
+  end
 end

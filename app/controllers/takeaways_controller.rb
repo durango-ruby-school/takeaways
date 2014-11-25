@@ -37,19 +37,29 @@ class TakeawaysController < ApplicationController
 
   def destroy
     @takeaway = Takeaway.find params[:id]
-binding.pry
-    if @takeaway.placements.first
+
+    if @takeaway.has_been_stocked
       retire_takeaway @takeaway
       flash[:notice] = "Takeaway Successfully Retired"
       redirect_to client_path(@takeaway.client)
     else
       if @takeaway.destroy
         flash[:notice] = "Takeaway Successfully Deleted"
-        redirect_to takeaways_path
+        redirect_to client_path(@takeaway.client)
       else
+        flash[:notice] = "Takeaway Deletion Failed"
         render @takeaway
       end
     end
+  end
+
+  def restore
+    @takeaway = Takeaway.find params[:id]
+
+    @takeaway.active = true
+    @takeaway.save
+
+    redirect_to :back
   end
 
   private
@@ -60,24 +70,16 @@ binding.pry
 
   def retire_takeaway takeaway
     takeaway.transaction do
-      at_least_one_stocking_found = false
+      takeaway.active = false
+      takeaway.save
 
       takeaway.placements.each do |placement|
-        if placement.stockings.first
+        if placement.has_been_stocked
           placement.active = false
           placement.save
-
-          at_least_one_stocking_found = true
         else
           placement.destroy
         end
-      end
-
-      if at_least_one_stocking_found
-        takeaway.active = false
-        takeaway.save
-      else
-        takeaway.destroy
       end
     end
   end
