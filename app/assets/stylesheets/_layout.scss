@@ -57,6 +57,10 @@ body{
   display: inline;
 }
 
+.checkbox_label, .checkbox_label input {
+  cursor: pointer;
+}
+
 .wide-table {
   width: 100%;
 }

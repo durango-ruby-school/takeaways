@@ -47,7 +47,7 @@ class PlacementsController < ApplicationController
 
   def destroy
     @placement = Placement.find params[:id]
-    if (@placement.stockings.first)
+    if (@placement.has_been_stocked)
       @placement.active = false
       @placement.save
     else

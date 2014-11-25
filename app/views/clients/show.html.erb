@@ -11,7 +11,9 @@
 
 <div class="action-panel">
   <%= form_tag(@client, method: "get", id: 'show_hide_retired_takeaways') do %>
-    <%= check_box_tag :show_retired_takeaways, 1, @show_retired_takeaways %>Show Retired Takeaways
+    <label for="show_retired_takeaways" class="checkbox_label">
+      <%= check_box_tag :show_retired_takeaways, 1, @show_retired_takeaways %>Show Retired Takeaways
+    </label>
   <% end %>
   <br/>
   <%= link_to "Add Takeaway", new_takeaway_path(client_id: @client.id) %>

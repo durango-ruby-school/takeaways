@@ -56,11 +56,7 @@ feature 'manage takeaways' do
 
 
     visit client_path(client)
-    #when using the expect statement below, the destroy method would not be hit
-    #perhaps the javascript does not run inside an expect
-    #expect do
-      click_link "Retire"
-    #end.to change{Placement.count}.by -1
+    click_link "Retire"
     user_does_not_see_object(takeaway)
     placement_with_stocking.should exist_in_database
     placement_without_stocking.should_not exist_in_database
