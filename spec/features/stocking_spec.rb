@@ -6,30 +6,35 @@ feature 'manage racks' do
   end
 
   scenario "Add a stocking record for a takeaway" do
-    placement=create :placement
-    visit placement_path(placement)
+    takeaway = create :takeaway
+    rack = create :brochure_rack
+    placement = create :placement, takeaway: takeaway, brochure_rack: rack
 
-    click_link "Add Stocking"
+    visit takeaway_path(takeaway)
+    within placement do
+      click_link "Add Stocking"
+    end
+    fill_in "Quantity Stocked", with: 45
+
+    click_button "Create Stocking"
+    user_sees_flash_message "Successfully Created"
+
+    visit rack_path(rack)
+    within placement do
+      click_link "Add Stocking"
+    end
     fill_in "Quantity Stocked", with: 45
 
     click_button "Create Stocking"
     user_sees_flash_message "Successfully Created"
   end
 
-  scenario "View stocking record on a placement page" do
-    placement=create :placement
-    stocking=create :stocking, placement: placement
-
-    visit placement_path(placement)
-
-    user_sees_object stocking
-  end
-
   scenario "Ability to edit stocking record quantity" do
-    placement=create :placement
+    takeaway = create :takeaway
+    placement = create :placement, takeaway: takeaway, brochure_rack: rack
     stocking=create :stocking, placement: placement
 
-    visit placement_path(placement)
+    visit takeaway_path(takeaway)
 
     click_link "edit_stocking"
     fill_in "Quantity Stocked", with: 9999
@@ -39,25 +44,53 @@ feature 'manage racks' do
   end
 
   scenario "Delete a stocking record" do
-    placement=create :placement
+    takeaway = create :takeaway
+    placement = create :placement, takeaway: takeaway, brochure_rack: rack
     stocking=create :stocking, placement: placement
 
-    visit placement_path(placement)
+    visit takeaway_path(takeaway)
     click_link "delete_stocking"
     expect(page).to have_content "Successfully Deleted"
   end
 
-  scenario "Filter Stockings", js: true do
-    placement=create :placement
+  scenario "Filter stockings", js: true do
+    takeaway = create :takeaway
+    rack = create :brochure_rack
+    placement = create :placement, takeaway: takeaway, brochure_rack: rack
     stocking_this_month = create :stocking, placement: placement, stocked_on: Date.today
     stocking_last_month = create :stocking, placement: placement, stocked_on: 1.month.ago
 
-    visit placement_path(placement)
+    visit takeaway_path(takeaway)
     user_sees_object stocking_this_month
     user_does_not_see_object stocking_last_month
-
     select 'Last Month', from: :time_frame
     user_sees_object stocking_last_month
+    user_does_not_see_object stocking_this_month
+
+    visit brochure_rack_path(rack)
+    user_sees_object stocking_this_month
+    user_does_not_see_object stocking_last_month
+    select 'Last Month', from: :time_frame
+    user_sees_object stocking_last_month
+    user_does_not_see_object stocking_this_month
+  end
+
+  scenario "Show stocking after placement deletion", js: true do
+    takeaway = create :takeaway
+    rack = create :brochure_rack
+    placement = create :placement, takeaway: takeaway, brochure_rack: rack
+    stocking_this_month = create :stocking, placement: placement, stocked_on: Date.today
+
+    placement.destroy
+
+    visit takeaway_path(takeaway)
+    user_sees_object stocking_this_month
+    select 'Last Month', from: :time_frame
+    user_does_not_see_object stocking_this_month
+
+    visit brochure_rack_path(rack)
+    user_sees_object stocking_this_month
+    select 'Last Month', from: :time_frame
     user_does_not_see_object stocking_this_month
   end
 end

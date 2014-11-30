@@ -38,23 +38,6 @@ feature 'Placement Management' do
     expect(page).to have_content @takeaway
   end
 
-
-  scenario "View rack and takeaway on the placement page" do
-    placement= create :placement
-    visit placement_path(placement)
-
-    expect(page).to have_content placement.brochure_rack.name
-    expect(page).to have_content placement.takeaway.name
-  end
-
-  scenario "Link to racks on placement page" do
-    placement=create :placement
-    visit placement_path(placement)
-
-    click_link "Back to Racks"
-    expect(page).to have_content "Racks"
-  end
-
   scenario "Mark placement inactve" do
     takeaway = create :takeaway
     rack = create :brochure_rack
@@ -64,15 +47,15 @@ feature 'Placement Management' do
     visit takeaway_path(takeaway)
 
     user_sees_object placement
+    user_sees_object stocking
     expect do
       click_link "Remove from Rack"
     end.to_not change{Placement.count}
     user_does_not_see_object placement
+    user_does_not_see_object stocking
 
     visit brochure_rack_path(rack)
     user_sees_object placement
-
-    visit placement_path(placement)
     user_sees_object stocking
 
     visit takeaway_path(takeaway)
