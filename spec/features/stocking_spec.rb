@@ -11,7 +11,7 @@ feature 'manage racks' do
     placement = create :placement, takeaway: takeaway, brochure_rack: rack
 
     visit takeaway_path(takeaway)
-    within placement do
+    within ".placement" do
       click_link "Add Stocking"
     end
     fill_in "Quantity Stocked", with: 45
@@ -20,7 +20,7 @@ feature 'manage racks' do
     user_sees_flash_message "Successfully Created"
 
     visit rack_path(rack)
-    within placement do
+    within ".placement" do
       click_link "Add Stocking"
     end
     fill_in "Quantity Stocked", with: 45
@@ -31,7 +31,7 @@ feature 'manage racks' do
 
   scenario "Ability to edit stocking record quantity" do
     takeaway = create :takeaway
-    placement = create :placement, takeaway: takeaway, brochure_rack: rack
+    placement = create :placement, takeaway: takeaway
     stocking=create :stocking, placement: placement
 
     visit takeaway_path(takeaway)
@@ -45,7 +45,7 @@ feature 'manage racks' do
 
   scenario "Delete a stocking record" do
     takeaway = create :takeaway
-    placement = create :placement, takeaway: takeaway, brochure_rack: rack
+    placement = create :placement, takeaway: takeaway
     stocking=create :stocking, placement: placement
 
     visit takeaway_path(takeaway)
@@ -92,5 +92,36 @@ feature 'manage racks' do
     user_sees_object stocking_this_month
     select 'Last Month', from: :time_frame
     user_does_not_see_object stocking_this_month
+  end
+
+  scenario "Show current placements with stockings for time frame", js: true do
+    takeaway = create :takeaway
+    rack = create :brochure_rack
+    placement_with_stockings_this_month = create :placement, takeaway: takeaway, brochure_rack: rack
+    placement_with_stockings_last_month = create :placement, takeaway: takeaway, brochure_rack: rack
+    placement_without_stockings = create :placement, takeaway: takeaway, brochure_rack: rack
+    stocking_this_month = create :stocking, placement: placement_with_stockings_this_month, stocked_on: Date.today
+    stocking_last_month = create :stocking, placement: placement_with_stockings_last_month, stocked_on: 1.month.ago
+
+    placement_with_stockings_this_month.destroy
+    placement_with_stockings_last_month.destroy
+
+    visit takeaway_path(takeaway)
+    #Default time frame is "This Month"
+    #"Show Currently Active Takeaways" should default to true when viewing "This Month"
+    user_sees_object placement_without_stockings
+    user_sees_object placement_with_stockings_this_month
+    user_does_not_see_object placement_with_stockings_last_month
+
+    select 'Last Month', from: :time_frame
+    #"Show Currently Active Takeaways" should default to false when viewing "Last Month"
+    user_does_not_see_object placement_without_stockings
+    user_does_not_see_object placement_with_stockings_this_month
+    user_sees_object placement_with_stockings_last_month
+
+    check 'Show Currently Active Takeaways'
+    user_sees_object placement_without_stockings
+    user_does_not_see_object placement_with_stockings_this_month
+    user_sees_object placement_with_stockings_last_month
   end
 end
