@@ -19,6 +19,25 @@ class TakeawaysController < ApplicationController
 
   def show
     @takeaway= Takeaway.find(params[:id]).decorate
+
+    @time_frame_list = { this_month: 'This Month', last_month: "Last Month", this_year: "This Year", last_year: "Last Year" }
+
+    if(params.has_key?(:time_frame))
+      @time_frame = params[:time_frame].to_sym
+    else
+      @time_frame = :this_month
+    end
+
+    case @time_frame
+    when :this_month
+      @placements = @takeaway.placements.active_or_stocked_this_month
+    when :last_month
+      @placements = @takeaway.placements.stocked_last_month
+    when :this_year
+      @placements = @takeaway.placements.stocked_this_year
+    when :last_year
+      @placements = @takeaway.placements.stocked_last_year
+    end
   end
 
   def edit

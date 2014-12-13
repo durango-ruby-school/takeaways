@@ -1,3 +1,11 @@
+<script>
+$(function() {
+  $("#time_frame_filter #time_frame").on("change", function() {
+    this.form.submit();
+  })
+});
+</script>
+
 <div class="page-header">
   <h1><%= @takeaway.name %></h1>
   <%= link_to edit_takeaway_path(@takeaway), id: "edit_takeaway" do %>
@@ -10,13 +18,24 @@
 
 <div class="action-panel">
   <%= link_to "Assign Takeaway", new_placement_path(takeaway_id: @takeaway) %>
+
+  <%= form_tag(@takeaway, method: "get", id: 'time_frame_filter') do %>
+    Show
+    <%= select_tag :time_frame,
+          options_from_collection_for_select(
+            @time_frame_list,
+            :first,
+            :last,
+            @time_frame
+          ) %>
+  <% end %>
 </div>
 
 <table class="wide-table table-borders">
   <tr>
     <th>Racks</th>
   </tr>
-  <% @takeaway.placements.active.each do |placement| %>
+  <% @placements.each do |placement| %>
     <%= content_tag_for(:tr, placement) do %>
       <td>
         <%= link_to placement.brochure_rack.name, placement %>
@@ -24,6 +43,31 @@
           id: 'remove_from_rack',
           method: :delete,
           data:{confirm: "Are you sure?"} %>
+
+          <% if placement.has_been_stocked_in_time_frame(@time_frame) %>
+            <table class="wide-table table-borders">
+              <tr>
+                <th>Date</th>
+                <th>Quantity</th>
+                <th></th>
+              </tr>
+              <% placement.stockings.in_time_frame(@time_frame).each do |stocking| %>
+                <%= content_tag_for(:tr, stocking) do %>
+                  <td><%= stocking.stocked_on %></td>
+                  <td><%= stocking.quantity %></td>
+                  <td>
+                    <%= link_to edit_stocking_path(stocking), id: "edit_stocking" do %>
+                      <i class="fa fa-pencil"></i>
+                      <% end %>
+                      <%= link_to stocking_path(stocking), id: "delete_stocking", method: :delete,
+                      data:{confirm: "Are you sure?"} do %>
+                      <i class="fa fa-trash"></i>
+                      <% end %>
+                  </td>
+                <% end %>
+              <% end %>
+            </table>
+          <% end %>
       </td>
     <% end %>
   <% end %>

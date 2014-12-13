@@ -12,4 +12,19 @@ class Stocking < ActiveRecord::Base
   scope :last_month, -> { where(stocked_on: 1.month.ago.beginning_of_month..1.month.ago.end_of_month) }
   scope :this_year, -> { where(stocked_on: Date.today.beginning_of_year..Date.today.end_of_year) }
   scope :last_year, -> { where(stocked_on: 1.year.ago.beginning_of_year..1.year.ago.end_of_year) }
+
+  class << self
+    def in_time_frame(time_frame)
+      case time_frame
+      when :this_month
+        where(stocked_on: Date.today.beginning_of_month..Date.today.end_of_month)
+      when :last_month
+        where(stocked_on: 1.month.ago.beginning_of_month..1.month.ago.end_of_month)
+      when :this_year
+        where(stocked_on: Date.today.beginning_of_year..Date.today.end_of_year)
+      when :last_year
+        where(stocked_on: 1.year.ago.beginning_of_year..1.year.ago.end_of_year)
+      end
+    end
+  end
 end
