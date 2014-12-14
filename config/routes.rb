@@ -19,7 +19,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :placements, only: [:new, :create, :show, :destroy] do
+  resources :placements, only: [:new, :create, :destroy] do
     resources :stockings, only: [:new, :create]
   end
 
