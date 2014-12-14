@@ -18,41 +18,48 @@ $(function() {
 <% end %>
 </div>
 <div class="action-panel">
-  <%= link_to "Assign Takeaway", new_placement_path(brochure_rack_id: @brochure_rack) %>
-  |
-  <%= link_to "Stock Rack", new_brochure_rack_mass_stocking_path(@brochure_rack) %>
-
-  <%= form_tag(@brochure_rack, method: "get", id: 'time_frame_filter') do %>
-    Show
-    <%= select_tag :time_frame,
-          options_from_collection_for_select(
-            @time_frame_list,
-            :first,
-            :last,
-            @time_frame
-          ) %>
-  <% end %>
+  <div class = "actions">
+    <%= link_to "Assign Takeaway", new_placement_path(brochure_rack_id: @brochure_rack) %>
+    <br />
+    <%= link_to "Stock Rack", new_brochure_rack_mass_stocking_path(@brochure_rack) %>
+  </div>
+  <div class = "time_frame_panel">
+    <%= form_tag(@brochure_rack, method: "get", id: 'time_frame_filter') do %>
+      Show
+      <%= select_tag :time_frame,
+            options_from_collection_for_select(
+              @time_frame_list,
+              :first,
+              :last,
+              @time_frame
+            ) %>
+    <% end %>
+  </div>
 </div>
 
-<table class="wide-table table-borders">
+<table class="wide-table table-minimal">
   <tr>
     <th>Takeaways</th>
   </tr>
   <% @placements.each do |placement| %>
     <%= content_tag_for(:tr, placement)  do %>
       <td>
-        <%= link_to placement.takeaway.decorate.name, placement %>
-        <%= link_to "Add Stocking", new_placement_stocking_path(placement) %> | 
-        <% unless placement.active %>
-          <div class="more_info" title="This takeaway has since been removed from the rack, but it was stocked during the selected time frame.">
-            (Removed <i class="fa fa-info-circle" id="information"></i>)
-          </div>
-        <% end %>
+        <div class="row_name">
+          <%= link_to placement.takeaway.decorate.name, placement.takeaway %>
+          <% unless placement.active %>
+            <div class="more_info" title="This takeaway has since been removed from the rack, but it was stocked during the selected time frame.">
+              (Removed <i class="fa fa-info-circle" id="information"></i>)
+            </div>
+          <% end %>
+        </div>
+        <div class="row_actions">
+          <%= link_to "Add Stocking", new_placement_stocking_path(placement) %>
+        </div>
 
         <% if placement.has_been_stocked_in_time_frame(@time_frame) %>
-          <table class="wide-table table-borders">
+          <table class="wide-table table-borders placements">
             <tr>
-              <th>Date</th>
+              <th>Date Stocked</th>
               <th>Quantity</th>
               <th></th>
             </tr>

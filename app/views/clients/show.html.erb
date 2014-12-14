@@ -26,27 +26,30 @@
   <% @takeaways.each do |takeaway| %>
     <%= content_tag_for(:tr, takeaway) do %>
       <td>
-       <%= link_to takeaway.name, takeaway  %>
-
-        <% if takeaway.active %>
-          <% if takeaway.has_been_stocked %>
-            <%= link_to "Retire", takeaway,
-              id: 'retire_delete_takeaway',
-              method: :delete,
-              data:{confirm: "This will remove this takeaway from all racks. Are you sure?"} %>
+        <div class="row_name">
+          <%= link_to takeaway.name, takeaway  %>
+        </div>
+        <div class="row_actions">
+          <% if takeaway.active %>
+            <% if takeaway.has_been_stocked %>
+              <%= link_to "Retire", takeaway,
+                id: 'retire_delete_takeaway',
+                method: :delete,
+                data:{confirm: "This will remove this takeaway from all racks. Are you sure?"} %>
+            <% else %>
+              <%= link_to "Delete", takeaway,
+                id: 'retire_delete_takeaway',
+                method: :delete,
+                data:{confirm: "Are you sure?"} %>
+            <% end %>
           <% else %>
-            <%= link_to "Delete", takeaway,
-              id: 'retire_delete_takeaway',
-              method: :delete,
-              data:{confirm: "Are you sure?"} %>
+            (Retired)
+            <%= link_to "Restore",
+              restore_takeaway_path(takeaway),
+              id: 'restore_takeaway',
+              method: :get %>
           <% end %>
-        <% else %>
-          (Retired)
-          <%= link_to "Restore",
-            restore_takeaway_path(takeaway),
-            id: 'restore_takeaway',
-            method: :get %>
-        <% end %>
+        </div>
       </td>
     <% end %>
   <% end %>

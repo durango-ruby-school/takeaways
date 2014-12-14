@@ -17,38 +17,46 @@ $(function() {
 </div>
 
 <div class="action-panel">
-  <%= link_to "Assign Takeaway", new_placement_path(takeaway_id: @takeaway) %>
-
-  <%= form_tag(@takeaway, method: "get", id: 'time_frame_filter') do %>
-    Show
-    <%= select_tag :time_frame,
-          options_from_collection_for_select(
-            @time_frame_list,
-            :first,
-            :last,
-            @time_frame
-          ) %>
-  <% end %>
+  <div class = "actions">
+    <%= link_to "Assign Takeaway", new_placement_path(takeaway_id: @takeaway) %>
+  </div>
+  <div class="time_frame_panel">
+    <%= form_tag(@takeaway, method: "get", id: 'time_frame_filter') do %>
+      Show
+      <%= select_tag :time_frame,
+            options_from_collection_for_select(
+              @time_frame_list,
+              :first,
+              :last,
+              @time_frame
+            ) %>
+    <% end %>
+  </div>
 </div>
 
-<table class="wide-table table-borders">
+<table class="wide-table table-minimal">
   <tr>
     <th>Racks</th>
   </tr>
   <% @placements.each do |placement| %>
     <%= content_tag_for(:tr, placement) do %>
       <td>
-        <%= link_to placement.brochure_rack.name, placement %>
-        <%= link_to "Add Stocking", new_placement_stocking_path(placement) %> |
-        <%= link_to "Remove from Rack", placement,
-          id: 'remove_from_rack',
-          method: :delete,
-          data:{confirm: "Are you sure?"} %>
+        <div class="row_name">
+          <%= link_to placement.brochure_rack.name, placement.brochure_rack %>
+        </div>
+        <div class="row_actions">
+          <%= link_to "Add Stocking", new_placement_stocking_path(placement) %>
+          <br />
+          <%= link_to "Remove from Rack", placement,
+            id: 'remove_from_rack',
+            method: :delete,
+            data:{confirm: "Are you sure?"} %>
+        </div>
 
           <% if placement.has_been_stocked_in_time_frame(@time_frame) %>
-            <table class="wide-table table-borders">
+            <table class="table-borders placements">
               <tr>
-                <th>Date</th>
+                <th>Date Stocked</th>
                 <th>Quantity</th>
                 <th></th>
               </tr>
@@ -59,11 +67,11 @@ $(function() {
                   <td>
                     <%= link_to edit_stocking_path(stocking), id: "edit_stocking" do %>
                       <i class="fa fa-pencil"></i>
-                      <% end %>
-                      <%= link_to stocking_path(stocking), id: "delete_stocking", method: :delete,
+                    <% end %>
+                    <%= link_to stocking_path(stocking), id: "delete_stocking", method: :delete,
                       data:{confirm: "Are you sure?"} do %>
                       <i class="fa fa-trash"></i>
-                      <% end %>
+                    <% end %>
                   </td>
                 <% end %>
               <% end %>
