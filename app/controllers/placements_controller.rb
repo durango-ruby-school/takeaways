@@ -47,12 +47,7 @@ class PlacementsController < ApplicationController
 
   def destroy
     @placement = Placement.find params[:id]
-    if (@placement.has_been_stocked)
-      @placement.active = false
-      @placement.save
-    else
-      @placement.destroy
-    end
+    @placement.destroy_or_deactivate
 
     redirect_to(:back)
   end

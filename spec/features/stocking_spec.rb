@@ -19,7 +19,7 @@ feature 'manage racks' do
     click_button "Create Stocking"
     user_sees_flash_message "Successfully Created"
 
-    visit rack_path(rack)
+    visit brochure_rack_path(rack)
     within ".placement" do
       click_link "Add Stocking"
     end
@@ -53,12 +53,13 @@ feature 'manage racks' do
     expect(page).to have_content "Successfully Deleted"
   end
 
-  scenario "Filter stockings", js: true do
+  scenario "Show stockings in time frame", js: true do
     takeaway = create :takeaway
     rack = create :brochure_rack
     placement = create :placement, takeaway: takeaway, brochure_rack: rack
     stocking_this_month = create :stocking, placement: placement, stocked_on: Date.today
     stocking_last_month = create :stocking, placement: placement, stocked_on: 1.month.ago
+    stocking_last_year = create :stocking, placement: placement, stocked_on: 1.year.ago
 
     visit takeaway_path(takeaway)
     user_sees_object stocking_this_month
@@ -66,6 +67,12 @@ feature 'manage racks' do
     select 'Last Month', from: :time_frame
     user_sees_object stocking_last_month
     user_does_not_see_object stocking_this_month
+    select 'This Year', from: :time_frame
+    user_sees_object stocking_this_month
+    user_does_not_see_object stocking_last_year
+    select 'Last Year', from: :time_frame
+    user_does_not_see_object stocking_this_month
+    user_sees_object stocking_last_year
 
     visit brochure_rack_path(rack)
     user_sees_object stocking_this_month
@@ -73,6 +80,12 @@ feature 'manage racks' do
     select 'Last Month', from: :time_frame
     user_sees_object stocking_last_month
     user_does_not_see_object stocking_this_month
+    select 'This Year', from: :time_frame
+    user_sees_object stocking_this_month
+    user_does_not_see_object stocking_last_year
+    select 'Last Year', from: :time_frame
+    user_does_not_see_object stocking_this_month
+    user_sees_object stocking_last_year
   end
 
   scenario "Show stocking after placement deletion", js: true do
@@ -81,47 +94,12 @@ feature 'manage racks' do
     placement = create :placement, takeaway: takeaway, brochure_rack: rack
     stocking_this_month = create :stocking, placement: placement, stocked_on: Date.today
 
-    placement.destroy
+    placement.destroy_or_deactivate
 
     visit takeaway_path(takeaway)
     user_sees_object stocking_this_month
-    select 'Last Month', from: :time_frame
-    user_does_not_see_object stocking_this_month
 
     visit brochure_rack_path(rack)
     user_sees_object stocking_this_month
-    select 'Last Month', from: :time_frame
-    user_does_not_see_object stocking_this_month
-  end
-
-  scenario "Show current placements with stockings for time frame", js: true do
-    takeaway = create :takeaway
-    rack = create :brochure_rack
-    placement_with_stockings_this_month = create :placement, takeaway: takeaway, brochure_rack: rack
-    placement_with_stockings_last_month = create :placement, takeaway: takeaway, brochure_rack: rack
-    placement_without_stockings = create :placement, takeaway: takeaway, brochure_rack: rack
-    stocking_this_month = create :stocking, placement: placement_with_stockings_this_month, stocked_on: Date.today
-    stocking_last_month = create :stocking, placement: placement_with_stockings_last_month, stocked_on: 1.month.ago
-
-    placement_with_stockings_this_month.destroy
-    placement_with_stockings_last_month.destroy
-
-    visit takeaway_path(takeaway)
-    #Default time frame is "This Month"
-    #"Show Currently Active Takeaways" should default to true when viewing "This Month"
-    user_sees_object placement_without_stockings
-    user_sees_object placement_with_stockings_this_month
-    user_does_not_see_object placement_with_stockings_last_month
-
-    select 'Last Month', from: :time_frame
-    #"Show Currently Active Takeaways" should default to false when viewing "Last Month"
-    user_does_not_see_object placement_without_stockings
-    user_does_not_see_object placement_with_stockings_this_month
-    user_sees_object placement_with_stockings_last_month
-
-    check 'Show Currently Active Takeaways'
-    user_sees_object placement_without_stockings
-    user_does_not_see_object placement_with_stockings_this_month
-    user_sees_object placement_with_stockings_last_month
   end
 end

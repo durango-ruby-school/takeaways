@@ -51,8 +51,8 @@ feature 'Placement Management' do
     expect do
       click_link "Remove from Rack"
     end.to_not change{Placement.count}
-    user_does_not_see_object placement
-    user_does_not_see_object stocking
+    user_sees_object placement
+    user_sees_object stocking
 
     visit brochure_rack_path(rack)
     user_sees_object placement
@@ -78,5 +78,69 @@ feature 'Placement Management' do
       click_link "Remove from Rack"
     end.to change{Placement.count}.by -1
     user_does_not_see_object placement
+  end
+
+  scenario "Show placements in time frame for given takeaway", js: true do
+    takeaway = create :takeaway
+    active_placement = create :placement, takeaway: takeaway
+    inactive_placement_stocked_this_month = create :placement, takeaway: takeaway
+    inactive_placement_stocked_last_month = create :placement, takeaway: takeaway
+    inactive_placement_stocked_last_year = create :placement, takeaway: takeaway
+    stocking_this_month = create :stocking, placement: inactive_placement_stocked_this_month, stocked_on: Date.today
+    stocking_last_month = create :stocking, placement: inactive_placement_stocked_last_month, stocked_on: 1.month.ago
+    stocking_last_year = create :stocking, placement: inactive_placement_stocked_last_year, stocked_on: 1.year.ago
+
+    inactive_placement_stocked_this_month.destroy_or_deactivate
+    inactive_placement_stocked_last_month.destroy_or_deactivate
+    inactive_placement_stocked_last_year.destroy_or_deactivate
+
+    visit takeaway_path(takeaway)
+    user_sees_object active_placement
+    user_sees_object inactive_placement_stocked_this_month
+    user_does_not_see_object inactive_placement_stocked_last_month
+    select 'Last Month', from: :time_frame
+    user_does_not_see_object active_placement
+    user_does_not_see_object inactive_placement_stocked_this_month
+    user_sees_object inactive_placement_stocked_last_month
+    select 'This Year', from: :time_frame
+    user_does_not_see_object active_placement
+    user_sees_object inactive_placement_stocked_this_month
+    user_does_not_see_object inactive_placement_stocked_last_year
+    select 'Last Year', from: :time_frame
+    user_does_not_see_object active_placement
+    user_does_not_see_object inactive_placement_stocked_this_month
+    user_sees_object inactive_placement_stocked_last_year
+  end
+
+  scenario "Show placements in time frame for given rack", js: true do
+    rack = create :brochure_rack
+    active_placement = create :placement, brochure_rack: rack
+    inactive_placement_stocked_this_month = create :placement, brochure_rack: rack
+    inactive_placement_stocked_last_month = create :placement, brochure_rack: rack
+    inactive_placement_stocked_last_year = create :placement, brochure_rack: rack
+    stocking_this_month = create :stocking, placement: inactive_placement_stocked_this_month, stocked_on: Date.today
+    stocking_last_month = create :stocking, placement: inactive_placement_stocked_last_month, stocked_on: 1.month.ago
+    stocking_last_year = create :stocking, placement: inactive_placement_stocked_last_year, stocked_on: 1.year.ago
+
+    inactive_placement_stocked_this_month.destroy_or_deactivate
+    inactive_placement_stocked_last_month.destroy_or_deactivate
+    inactive_placement_stocked_last_year.destroy_or_deactivate
+
+    visit brochure_rack_path(rack)
+    user_sees_object active_placement
+    user_sees_object inactive_placement_stocked_this_month
+    user_does_not_see_object inactive_placement_stocked_last_month
+    select 'Last Month', from: :time_frame
+    user_does_not_see_object active_placement
+    user_does_not_see_object inactive_placement_stocked_this_month
+    user_sees_object inactive_placement_stocked_last_month
+    select 'This Year', from: :time_frame
+    user_does_not_see_object active_placement
+    user_sees_object inactive_placement_stocked_this_month
+    user_does_not_see_object inactive_placement_stocked_last_year
+    select 'Last Year', from: :time_frame
+    user_does_not_see_object active_placement
+    user_does_not_see_object inactive_placement_stocked_this_month
+    user_sees_object inactive_placement_stocked_last_year
   end
 end

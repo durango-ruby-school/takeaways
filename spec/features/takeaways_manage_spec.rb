@@ -66,7 +66,7 @@ feature 'manage takeaways' do
     expect(page).to have_content "Retired"
 
     visit takeaway_path(takeaway)
-    user_does_not_see_object(placement_with_stocking)
+    user_sees_object(placement_with_stocking)
 
     visit brochure_rack_path(rack)
     user_sees_object(placement_with_stocking)

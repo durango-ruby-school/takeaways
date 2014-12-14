@@ -39,6 +39,7 @@ $(function() {
     <%= content_tag_for(:tr, placement) do %>
       <td>
         <%= link_to placement.brochure_rack.name, placement %>
+        <%= link_to "Add Stocking", new_placement_stocking_path(placement) %> |
         <%= link_to "Remove from Rack", placement,
           id: 'remove_from_rack',
           method: :delete,

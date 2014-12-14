@@ -42,6 +42,7 @@ $(function() {
     <%= content_tag_for(:tr, placement)  do %>
       <td>
         <%= link_to placement.takeaway.decorate.name, placement %>
+        <%= link_to "Add Stocking", new_placement_stocking_path(placement) %> | 
         <% unless placement.active %>
           <div class="more_info" title="This takeaway has since been removed from the rack, but it was stocked during the selected time frame.">
             (Removed <i class="fa fa-info-circle" id="information"></i>)

@@ -33,4 +33,13 @@ class Placement < ActiveRecord::Base
       false
     end
   end
+
+  def destroy_or_deactivate
+    if (self.has_been_stocked)
+      self.active = false
+      self.save
+    else
+      self.destroy
+    end
+  end
 end
