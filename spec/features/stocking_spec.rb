@@ -94,9 +94,10 @@ feature 'manage racks' do
     placement = create :placement, takeaway: takeaway, brochure_rack: rack
     stocking_this_month = create :stocking, placement: placement, stocked_on: Date.today
 
-    placement.destroy_or_deactivate
-
     visit takeaway_path(takeaway)
+    within "\#placement_#{ placement.id }" do
+      click_link "Remove from Rack"
+    end
     user_sees_object stocking_this_month
 
     visit brochure_rack_path(rack)

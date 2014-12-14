@@ -1,11 +1,3 @@
-<script>
-$(function() {
-  $("#time_frame_filter #time_frame").on("change", function() {
-    this.form.submit();
-  })
-});
-</script>
-
 <%= link_to "Back to Rack List", brochure_racks_path %>
 
 <div class="page-header">
@@ -54,6 +46,13 @@ $(function() {
         </div>
         <div class="row_actions">
           <%= link_to "Add Stocking", new_placement_stocking_path(placement) %>
+          <% if placement.active %>
+            <br />
+            <%= link_to "Remove from Rack", placement,
+              id: 'remove_from_rack',
+              method: :delete,
+              data:{confirm: "Are you sure?"} %>
+          <% end %>
         </div>
 
         <% if placement.has_been_stocked_in_time_frame(@time_frame) %>

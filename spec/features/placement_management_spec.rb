@@ -90,11 +90,17 @@ feature 'Placement Management' do
     stocking_last_month = create :stocking, placement: inactive_placement_stocked_last_month, stocked_on: 1.month.ago
     stocking_last_year = create :stocking, placement: inactive_placement_stocked_last_year, stocked_on: 1.year.ago
 
-    inactive_placement_stocked_this_month.destroy_or_deactivate
-    inactive_placement_stocked_last_month.destroy_or_deactivate
-    inactive_placement_stocked_last_year.destroy_or_deactivate
-
     visit takeaway_path(takeaway)
+    within "\#placement_#{ inactive_placement_stocked_this_month.id }" do
+      click_link "Remove from Rack"
+    end
+    within "\#placement_#{ inactive_placement_stocked_last_month.id }" do
+      click_link "Remove from Rack"
+    end
+    within "\#placement_#{ inactive_placement_stocked_last_year.id }" do
+      click_link "Remove from Rack"
+    end
+
     user_sees_object active_placement
     user_sees_object inactive_placement_stocked_this_month
     user_does_not_see_object inactive_placement_stocked_last_month
@@ -122,11 +128,17 @@ feature 'Placement Management' do
     stocking_last_month = create :stocking, placement: inactive_placement_stocked_last_month, stocked_on: 1.month.ago
     stocking_last_year = create :stocking, placement: inactive_placement_stocked_last_year, stocked_on: 1.year.ago
 
-    inactive_placement_stocked_this_month.destroy_or_deactivate
-    inactive_placement_stocked_last_month.destroy_or_deactivate
-    inactive_placement_stocked_last_year.destroy_or_deactivate
-
     visit brochure_rack_path(rack)
+    within "\#placement_#{ inactive_placement_stocked_this_month.id }" do
+      click_link "Remove from Rack"
+    end
+    within "\#placement_#{ inactive_placement_stocked_last_month.id }" do
+      click_link "Remove from Rack"
+    end
+    within "\#placement_#{ inactive_placement_stocked_last_year.id }" do
+      click_link "Remove from Rack"
+    end
+    
     user_sees_object active_placement
     user_sees_object inactive_placement_stocked_this_month
     user_does_not_see_object inactive_placement_stocked_last_month

@@ -1,11 +1,3 @@
-<script>
-$(function() {
-  $("#time_frame_filter #time_frame").on("change", function() {
-    this.form.submit();
-  })
-});
-</script>
-
 <div class="page-header">
   <h1><%= @takeaway.name %></h1>
   <%= link_to edit_takeaway_path(@takeaway), id: "edit_takeaway" do %>
@@ -43,6 +35,11 @@ $(function() {
       <td>
         <div class="row_name">
           <%= link_to placement.brochure_rack.name, placement.brochure_rack %>
+          <% unless placement.active %>
+            <div class="more_info" title="This takeaway has since been removed from the rack, but it was stocked during the selected time frame.">
+              (Removed <i class="fa fa-info-circle" id="information"></i>)
+            </div>
+          <% end %>
         </div>
         <div class="row_actions">
           <%= link_to "Add Stocking", new_placement_stocking_path(placement) %>
