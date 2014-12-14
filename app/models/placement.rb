@@ -10,10 +10,10 @@ class Placement < ActiveRecord::Base
   validates_uniqueness_of(:takeaway_id, scope: :brochure_rack_id)
 
   scope :active, -> { where(active: true) }
-  scope :active_or_stocked_this_month, -> { joins("LEFT OUTER JOIN stockings ON placements.id = stockings.placement_id").where("placements.active = TRUE OR stockings.stocked_on BETWEEN ? AND ?", Date.today.beginning_of_month, Date.today.end_of_month) }
-  scope :stocked_last_month, -> { joins(:stockings).merge(Stocking.last_month) }
-  scope :stocked_this_year, -> { joins(:stockings).merge(Stocking.this_year) }
-  scope :stocked_last_year, -> { joins(:stockings).merge(Stocking.last_year) }
+  scope :active_or_stocked_this_month, -> { joins("LEFT OUTER JOIN stockings ON placements.id = stockings.placement_id").where("placements.active = TRUE OR stockings.stocked_on BETWEEN ? AND ?", Date.today.beginning_of_month, Date.today.end_of_month).uniq }
+  scope :stocked_last_month, -> { joins(:stockings).merge(Stocking.in_time_frame(:last_month)) }
+  scope :stocked_this_year, -> { joins(:stockings).merge(Stocking.in_time_frame(:this_year)) }
+  scope :stocked_last_year, -> { joins(:stockings).merge(Stocking.in_time_frame(:last_year)) }
 
   delegate :name, to: :takeaway, prefix:true
   delegate :name, to: :client, prefix:true

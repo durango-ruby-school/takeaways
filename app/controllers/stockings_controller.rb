@@ -10,7 +10,7 @@ class StockingsController < ApplicationController
     @stocking= @placement.stockings.build stocking_params
     if @stocking.save
       flash[:notice]= "Successfully Created"
-      redirect_to @placement
+      redirect_to @placement.takeaway
     else
       render "new"
     end
@@ -29,7 +29,7 @@ class StockingsController < ApplicationController
 
     if @stocking.update_attributes stocking_params
       flash[:notice]= "Successfully Updated"
-      redirect_to @stocking.placement
+      redirect_to @stocking.takeaway
     else
       render "edit"
     end
@@ -39,7 +39,7 @@ class StockingsController < ApplicationController
     @stocking = Stocking.find params[:id]
     @stocking.destroy
     flash[:notice] = "Successfully Deleted"
-    redirect_to @stocking.placement
+    redirect_to @stocking.takeaway
   end
 
   private

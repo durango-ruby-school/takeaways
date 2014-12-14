@@ -16,32 +16,9 @@ class PlacementsController < ApplicationController
     end
 
     if @placement.save
-      redirect_to placement_path(@placement), notice: "Success"
+      redirect_to @placement.takeaway, notice: "Success"
     else
       render "new"
-    end
-  end
-
-  def show
-    @time_frame_list = { this_month: 'This Month', last_month: "Last Month", this_year: "This Year", last_year: "Last Year" }
-
-    @placement = Placement.find params[:id]
-
-    if(params.has_key?(:time_frame))
-      @time_frame = params[:time_frame].to_sym
-    else
-      @time_frame = :this_month
-    end
-
-    case @time_frame
-    when :this_month
-      @stockings = @placement.stockings.this_month
-    when :last_month
-      @stockings = @placement.stockings.last_month
-    when :this_year
-      @stockings = @placement.stockings.this_year
-    when :last_year
-      @stockings = @placement.stockings.last_year
     end
   end
 
