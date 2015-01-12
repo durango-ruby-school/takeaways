@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141110221053) do
+ActiveRecord::Schema.define(version: 20141118030327) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -79,10 +79,11 @@ ActiveRecord::Schema.define(version: 20141110221053) do
   add_index "oauth_applications", ["uid"], name: "index_oauth_applications_on_uid", unique: true, using: :btree
 
   create_table "placements", force: true do |t|
-    t.integer  "brochure_rack_id", null: false
-    t.integer  "takeaway_id",      null: false
+    t.integer  "brochure_rack_id",                null: false
+    t.integer  "takeaway_id",                     null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "active",           default: true, null: false
   end
 
   add_index "placements", ["brochure_rack_id", "takeaway_id"], name: "index_placements_on_brochure_rack_id_and_takeaway_id", unique: true, using: :btree
@@ -100,10 +101,11 @@ ActiveRecord::Schema.define(version: 20141110221053) do
   add_index "stockings", ["placement_id"], name: "index_stockings_on_placement_id", using: :btree
 
   create_table "takeaways", force: true do |t|
-    t.string   "name",       null: false
-    t.integer  "client_id",  null: false
+    t.string   "name",                      null: false
+    t.integer  "client_id",                 null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "active",     default: true, null: false
   end
 
   add_index "takeaways", ["client_id"], name: "index_takeaways_on_client_id", using: :btree

@@ -57,12 +57,51 @@ body{
   display: inline;
 }
 
+.action-panel .actions {
+  float: left;
+}
+
+.action-panel .time_frame_panel {
+  float: right;
+}
+
+.checkbox_label, .checkbox_label input {
+  cursor: pointer;
+}
+
 .wide-table {
   width: 100%;
 }
 
-.wide-table a {
-  display: block;
+.row_name {
+  float: left;
+}
+
+.row_actions {
+  float: right;
+}
+
+.placements {
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-top: 4em;
+  width: 80%
+}
+
+.more_info {
+  border-bottom: 1px dotted;
+  position: relative;
+  cursor: pointer;
+}
+
+.more_info .title {
+    position: absolute;
+    top: 20px;
+    background: silver;
+    padding: 4px;
+    left: 0;
+    white-space: pre-wrap;
+    width: 300px;
 }
 
 .side-padded {

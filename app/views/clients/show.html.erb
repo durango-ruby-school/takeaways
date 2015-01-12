@@ -10,6 +10,12 @@
 </div>
 
 <div class="action-panel">
+  <%= form_tag(@client, method: "get", id: 'show_hide_retired_takeaways') do %>
+    <label for="show_retired_takeaways" class="checkbox_label">
+      <%= check_box_tag :show_retired_takeaways, 1, @show_retired_takeaways %>Show Retired Takeaways
+    </label>
+  <% end %>
+  <br/>
   <%= link_to "Add Takeaway", new_takeaway_path(client_id: @client.id) %>
 </div>
 
@@ -18,10 +24,33 @@
     <th>Takeaways</th>
   </tr>
   <% @takeaways.each do |takeaway| %>
-    <tr>
+    <%= content_tag_for(:tr, takeaway) do %>
       <td>
-       <%= link_to takeaway.name, takeaway  %>
+        <div class="row_name">
+          <%= link_to takeaway.name, takeaway  %>
+        </div>
+        <div class="row_actions">
+          <% if takeaway.active %>
+            <% if takeaway.has_been_stocked %>
+              <%= link_to "Retire", takeaway,
+                id: 'retire_delete_takeaway',
+                method: :delete,
+                data:{confirm: "This will remove this takeaway from all racks. Are you sure?"} %>
+            <% else %>
+              <%= link_to "Delete", takeaway,
+                id: 'retire_delete_takeaway',
+                method: :delete,
+                data:{confirm: "Are you sure?"} %>
+            <% end %>
+          <% else %>
+            (Retired)
+            <%= link_to "Restore",
+              restore_takeaway_path(takeaway),
+              id: 'restore_takeaway',
+              method: :get %>
+          <% end %>
+        </div>
       </td>
-    </tr>
+    <% end %>
   <% end %>
 </table>

@@ -24,10 +24,10 @@ feature "Mass Stocking" do
     click_button "Save"
     user_sees_flash_message /success/i
 
-    visit placement_path(placement_1)
+    visit takeaway_path(placement_1.takeaway)
     expect(page).to have_content 5
 
-    visit placement_path(placement_2)
+    visit takeaway_path(placement_2.takeaway)
     expect(page).to have_content 10
   end
 end

@@ -38,20 +38,121 @@ feature 'Placement Management' do
     expect(page).to have_content @takeaway
   end
 
+  scenario "Mark placement inactve" do
+    takeaway = create :takeaway
+    rack = create :brochure_rack
+    placement = create :placement, takeaway: takeaway, brochure_rack: rack
+    stocking = create :stocking, placement: placement
 
-  scenario "View rack and takeaway on the placement page" do
-    placement= create :placement
-    visit placement_path(placement)
+    visit takeaway_path(takeaway)
 
-    expect(page).to have_content placement.brochure_rack.name
-    expect(page).to have_content placement.takeaway.name
+    user_sees_object placement
+    user_sees_object stocking
+    expect do
+      click_link "Remove from Rack"
+    end.to_not change{Placement.count}
+    user_sees_object placement
+    user_sees_object stocking
+
+    visit brochure_rack_path(rack)
+    user_sees_object placement
+    user_sees_object stocking
+
+    visit takeaway_path(takeaway)
+    click_link "Assign Takeaway"
+
+    select rack.name, from: 'Brochure rack'
+    click_button "Assign"
+
+    visit takeaway_path(takeaway)
+    user_sees_object placement
   end
 
-  scenario "Link to racks on placement page" do
-    placement=create :placement
-    visit placement_path(placement)
+  scenario "Delete placement with no stockings" do
+    takeaway= create :takeaway
+    placement = create :placement, takeaway: takeaway
 
-    click_link "Back to Racks"
-    expect(page).to have_content "Racks"
+    visit takeaway_path(takeaway)
+
+    expect do
+      click_link "Remove from Rack"
+    end.to change{Placement.count}.by -1
+    user_does_not_see_object placement
+  end
+
+  scenario "Show placements in time frame for given takeaway", js: true do
+    takeaway = create :takeaway
+    active_placement = create :placement, takeaway: takeaway
+    inactive_placement_stocked_this_month = create :placement, takeaway: takeaway
+    inactive_placement_stocked_last_month = create :placement, takeaway: takeaway
+    inactive_placement_stocked_last_year = create :placement, takeaway: takeaway
+    stocking_this_month = create :stocking, placement: inactive_placement_stocked_this_month, stocked_on: Date.today
+    stocking_last_month = create :stocking, placement: inactive_placement_stocked_last_month, stocked_on: 1.month.ago
+    stocking_last_year = create :stocking, placement: inactive_placement_stocked_last_year, stocked_on: 1.year.ago
+
+    visit takeaway_path(takeaway)
+    within "\#placement_#{ inactive_placement_stocked_this_month.id }" do
+      click_link "Remove from Rack"
+    end
+    within "\#placement_#{ inactive_placement_stocked_last_month.id }" do
+      click_link "Remove from Rack"
+    end
+    within "\#placement_#{ inactive_placement_stocked_last_year.id }" do
+      click_link "Remove from Rack"
+    end
+
+    user_sees_object active_placement
+    user_sees_object inactive_placement_stocked_this_month
+    user_does_not_see_object inactive_placement_stocked_last_month
+    select 'Last Month', from: :time_frame
+    user_does_not_see_object active_placement
+    user_does_not_see_object inactive_placement_stocked_this_month
+    user_sees_object inactive_placement_stocked_last_month
+    select 'This Year', from: :time_frame
+    user_does_not_see_object active_placement
+    user_sees_object inactive_placement_stocked_this_month
+    user_does_not_see_object inactive_placement_stocked_last_year
+    select 'Last Year', from: :time_frame
+    user_does_not_see_object active_placement
+    user_does_not_see_object inactive_placement_stocked_this_month
+    user_sees_object inactive_placement_stocked_last_year
+  end
+
+  scenario "Show placements in time frame for given rack", js: true do
+    rack = create :brochure_rack
+    active_placement = create :placement, brochure_rack: rack
+    inactive_placement_stocked_this_month = create :placement, brochure_rack: rack
+    inactive_placement_stocked_last_month = create :placement, brochure_rack: rack
+    inactive_placement_stocked_last_year = create :placement, brochure_rack: rack
+    stocking_this_month = create :stocking, placement: inactive_placement_stocked_this_month, stocked_on: Date.today
+    stocking_last_month = create :stocking, placement: inactive_placement_stocked_last_month, stocked_on: 1.month.ago
+    stocking_last_year = create :stocking, placement: inactive_placement_stocked_last_year, stocked_on: 1.year.ago
+
+    visit brochure_rack_path(rack)
+    within "\#placement_#{ inactive_placement_stocked_this_month.id }" do
+      click_link "Remove from Rack"
+    end
+    within "\#placement_#{ inactive_placement_stocked_last_month.id }" do
+      click_link "Remove from Rack"
+    end
+    within "\#placement_#{ inactive_placement_stocked_last_year.id }" do
+      click_link "Remove from Rack"
+    end
+    
+    user_sees_object active_placement
+    user_sees_object inactive_placement_stocked_this_month
+    user_does_not_see_object inactive_placement_stocked_last_month
+    select 'Last Month', from: :time_frame
+    user_does_not_see_object active_placement
+    user_does_not_see_object inactive_placement_stocked_this_month
+    user_sees_object inactive_placement_stocked_last_month
+    select 'This Year', from: :time_frame
+    user_does_not_see_object active_placement
+    user_sees_object inactive_placement_stocked_this_month
+    user_does_not_see_object inactive_placement_stocked_last_year
+    select 'Last Year', from: :time_frame
+    user_does_not_see_object active_placement
+    user_does_not_see_object inactive_placement_stocked_this_month
+    user_sees_object inactive_placement_stocked_last_year
   end
 end
